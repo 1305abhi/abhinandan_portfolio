@@ -15,6 +15,43 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-color: #ded3c5 var(--background);
+  scrollbar-width: thin;
+}
+
+/*
+Option 3: subtle scrollbar with accent on hover.
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cdbfad;
+  border: 3px solid var(--background);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+*/
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cdbfad;
+  border-radius: 999px;
 }
 
 body {
