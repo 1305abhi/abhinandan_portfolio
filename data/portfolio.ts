@@ -43,7 +43,7 @@ export const portfolio = {
     "I help teams ship software they can trust - hunting the edge cases, pressure-testing access control, and writing defect reports developers actually enjoy reading.",
   experience: [
     {
-      period: "Mar 2025 - Present",
+      period: "Mar 2025 - Jul 2026",
       role: "Jr. Software Tester",
       company: "Zluck Solutions",
       points: [
