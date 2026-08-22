@@ -5,3 +5,10 @@ dist
 .vercel
 *.log
 .env*
+
+# TypeScript incremental build artifact
+tsconfig.tsbuildinfo
+
+# Local working notes (not part of the site)
+CASE_STUDIES_PROPOSAL.md
+RUN_LOCAL.md

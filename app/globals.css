@@ -4,9 +4,11 @@
   --muted: #5f5a54;
   --line: #ded3c5;
   --accent: #b74725;
+  --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
   --max-width: 1080px;
-  --font-display: "Cormorant Garamond", "Bodoni 72", "Bodoni MT", Didot, Georgia, serif;
-  --font-sans: Inter, "Segoe UI", Arial, sans-serif;
+  --font-display: var(--font-cormorant), "Cormorant Garamond", "Bodoni 72", "Bodoni MT", Didot, Georgia, serif;
+  --font-sans: var(--font-inter), Inter, "Segoe UI", Arial, sans-serif;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -83,6 +85,26 @@ a {
   background: color-mix(in srgb, var(--background) 92%, transparent);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(14px);
+  transition: background 0.35s ease, box-shadow 0.35s ease, min-height 0.35s ease;
+}
+
+.site-nav[data-scrolled="true"] {
+  min-height: 72px;
+  background: color-mix(in srgb, var(--background) 97%, transparent);
+  box-shadow: 0 10px 30px -22px rgba(23, 17, 13, 0.55);
+}
+
+/* Scroll-progress indicator pinned to the very top edge. */
+.nav-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 20;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: var(--accent);
 }
 
 .brand {
@@ -102,11 +124,35 @@ a {
 }
 
 .site-nav nav a {
+  position: relative;
   color: var(--muted);
   font-size: 1.05rem;
+  transition: color 0.25s ease;
+}
+
+.site-nav nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform 0.3s var(--ease-out);
 }
 
 .site-nav nav a:hover {
+  color: var(--text);
+}
+
+.site-nav nav a:hover::after,
+.site-nav nav a[data-active="true"]::after {
+  transform: scaleX(1);
+}
+
+.site-nav nav a[data-active="true"] {
   color: var(--text);
 }
 
@@ -251,6 +297,7 @@ a {
 
 .section-block {
   padding: 0 0 132px;
+  scroll-margin-top: 104px;
 }
 
 .section-heading {
@@ -389,6 +436,81 @@ a {
 }
 
 .tools-row span:not(.tools-label) {
+  color: var(--muted);
+  font-size: 0.74rem;
+}
+
+/* Compact "Also tested" rows beneath the full case-study cards. Borrows the
+   two-column rhythm from .experience-item so it reads as part of the family. */
+.also-tested {
+  margin-top: 84px;
+}
+
+.also-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-bottom: 1px solid var(--line);
+}
+
+.also-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 10px 56px;
+  padding: 30px 0;
+  border-top: 1px solid var(--line);
+}
+
+.also-item-head {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.also-category,
+.also-number {
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+}
+
+.also-category {
+  color: var(--accent);
+}
+
+.also-number {
+  color: var(--muted);
+}
+
+.also-item h3 {
+  grid-column: 2;
+  margin: 0;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: 1.45rem;
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.also-item p {
+  grid-column: 2;
+  margin: 0;
+  color: #25201c;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.also-tools {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 4px;
+}
+
+.also-tools span {
   color: var(--muted);
   font-size: 0.74rem;
 }
@@ -627,6 +749,30 @@ a {
     gap: 28px;
   }
 
+  .also-tested {
+    margin-top: 56px;
+  }
+
+  .also-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 24px 0;
+  }
+
+  .also-item-head {
+    grid-row: auto;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .also-item h3,
+  .also-item p,
+  .also-tools {
+    grid-column: 1;
+  }
+
   .skill-grid,
   .split-section {
     gap: 28px;
@@ -647,5 +793,91 @@ a {
 
   .site-footer div:last-child {
     text-align: left;
+  }
+}
+
+/* ============================================================
+   Motion + interaction layer
+   ============================================================ */
+
+/* Hero name: each line rises out from behind a mask. */
+.hero-copy h1 .line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.hero-copy h1 .line-inner {
+  display: block;
+}
+
+/* Hero action links */
+.hero-actions .bob {
+  display: inline-block;
+}
+
+.hero-actions a span {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.hero-actions a:hover span {
+  transform: translateX(4px);
+}
+
+/* Case cards: lift + warm the border on hover (Framer handles the rise). */
+.case-card {
+  transition: box-shadow 0.4s var(--ease-out), border-color 0.4s ease;
+  will-change: transform;
+}
+
+.case-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 26px 50px -32px rgba(23, 17, 13, 0.5);
+}
+
+/* Contact rows: nudge the arrow and warm the value on hover. */
+.contact-row .arrow {
+  display: inline-block;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.contact-row a {
+  transition: color 0.25s ease;
+}
+
+.contact-row:hover a {
+  color: var(--accent);
+}
+
+.contact-row:hover .arrow {
+  transform: translateX(8px);
+}
+
+/* Visible keyboard focus everywhere. */
+a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+/* Respect visitors who ask for less motion. Framer Motion handles its own
+   reduced-motion behavior; this covers CSS transitions/animations too. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .nav-progress {
+    display: none;
   }
 }
