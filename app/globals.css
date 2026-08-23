@@ -293,6 +293,9 @@ a {
   font-size: clamp(2.4rem, 3vw, 4.6rem);
   font-weight: 500;
   line-height: 0.98;
+  /* "pressure-testing" is the longest token here; browsers break after the
+     hyphen, but guard the 320px case explicitly. */
+  overflow-wrap: break-word;
 }
 
 .section-block {
@@ -616,6 +619,9 @@ a {
   justify-self: end;
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(1.4rem, 3vw, 2.3rem);
+  /* tiwariabhinandan99@gmail.com is a single long token that would otherwise
+     push past a narrow phone; let it wrap rather than overflow. */
+  overflow-wrap: anywhere;
 }
 
 .site-footer {
@@ -632,6 +638,7 @@ a {
   margin: 0 0 12px;
   color: #2b2927;
   font-size: 1.05rem;
+  overflow-wrap: anywhere;
 }
 
 .site-footer .footer-line {
@@ -643,11 +650,74 @@ a {
   text-align: right;
 }
 
+/* ------------------------------------------------------------
+   Tablet (≤1024px). The hero's two columns need ~816px, so they
+   overflow a portrait tablet (~768px) — collapse to a single
+   column and center the portrait. The case columns and the paired
+   Skills/Certs/Education grids flow adaptively instead of forcing
+   three or two columns into a width that can't hold them.
+   Placed BEFORE the phone block so phone rules still win ≤760px.
+   ------------------------------------------------------------ */
+@media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    min-height: auto;
+    padding-top: 64px;
+  }
+
+  .hero-copy {
+    align-self: auto;
+    padding-bottom: 0;
+  }
+
+  .hero-portrait-wrap {
+    justify-self: center;
+    width: min(100%, 460px);
+  }
+
+  .hero-portrait {
+    max-height: none;
+    object-position: bottom center;
+  }
+
+  .intro {
+    padding: 72px 0 112px;
+  }
+
+  .section-block {
+    padding-bottom: 108px;
+  }
+
+  .case-card {
+    padding: 40px;
+  }
+
+  .case-columns {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px;
+  }
+
+  .skill-grid,
+  .split-section {
+    gap: 48px;
+  }
+
+  .split-section {
+    padding-bottom: 108px;
+  }
+}
+
 @media (max-width: 760px) {
   .site-nav {
     position: static;
     min-height: auto;
     align-items: flex-start;
+    /* Brand + longest link needs ~309px, so below ~340px they can't share a
+       row. Wrapping lets the link row drop underneath on its own instead of
+       overflowing - self-adjusting, no extra breakpoint needed. */
+    flex-wrap: wrap;
+    gap: 12px 24px;
     padding: 22px 16px;
   }
 
@@ -657,8 +727,15 @@ a {
     gap: 12px 18px;
   }
 
+  /* Bigger tap targets for thumbs; the underline is re-anchored so it stays
+     tight to the text rather than floating below the new padding. */
   .site-nav nav a {
     font-size: 0.95rem;
+    padding: 7px 0;
+  }
+
+  .site-nav nav a::after {
+    bottom: 0;
   }
 
   .hero {
@@ -674,6 +751,20 @@ a {
 
   .hero-kicker {
     margin-bottom: 22px;
+  }
+
+  /* The desktop clamp floors at 6.3rem (~101px), which makes "Abhinandan"
+     roughly 480px wide - far past a phone's usable width, so .line-mask's
+     overflow:hidden was clipping the name. Drive it from the viewport
+     instead, capped at the same 6.3rem it has above this breakpoint so
+     crossing 760px is seamless. */
+  .hero-copy h1 {
+    font-size: clamp(2.6rem, 16vw, 6.3rem);
+  }
+
+  .hero-role {
+    margin: 24px 0 30px;
+    font-size: clamp(1.7rem, 7.4vw, 2.1rem);
   }
 
   .hero-tags {
@@ -782,8 +873,13 @@ a {
     margin-top: -18px;
   }
 
+  /* The email is 14em wide as one unbreakable token. Scale it with the
+     viewport (capped at the 1.4rem it has above this breakpoint, so the seam
+     is invisible) and it stays on one line down to 320px instead of
+     mid-word wrapping. */
   .contact-row a {
     justify-self: start;
+    font-size: clamp(1.05rem, 5.6vw, 1.4rem);
   }
 
   .site-footer {
@@ -793,6 +889,106 @@ a {
 
   .site-footer div:last-child {
     text-align: left;
+  }
+}
+
+/* ------------------------------------------------------------
+   Small phones (≤480px). Pure spacing and scale tightening on top
+   of the phone block above - reclaims vertical space and buys back
+   horizontal room inside the case cards, where "Authentication"
+   had only ~8px of slack at 320px.
+   ------------------------------------------------------------ */
+@media (max-width: 480px) {
+  .brand {
+    font-size: 1.6rem;
+  }
+
+  .hero {
+    gap: 32px;
+    padding: 44px 16px 0;
+  }
+
+  .hero-kicker {
+    margin-bottom: 16px;
+    font-size: 1.05rem;
+  }
+
+  .hero-tags {
+    gap: 10px 16px;
+    margin-bottom: 32px;
+  }
+
+  .hero-tags li,
+  .hero-actions a {
+    font-size: 0.98rem;
+  }
+
+  .hero-actions {
+    gap: 18px 26px;
+  }
+
+  .portrait-note {
+    font-size: 0.95rem;
+  }
+
+  .portrait-note span {
+    width: 46px;
+    height: 32px;
+  }
+
+  .intro {
+    padding: 28px 0 72px;
+  }
+
+  .section-block,
+  .split-section {
+    padding-bottom: 72px;
+  }
+
+  .section-heading {
+    margin-bottom: 30px;
+  }
+
+  .timeline-list {
+    gap: 52px;
+  }
+
+  .case-list {
+    gap: 32px;
+  }
+
+  /* 20px instead of 28px gives the longest title word room to breathe. */
+  .case-card {
+    padding: 22px 20px;
+  }
+
+  .case-card h3 {
+    margin-bottom: 30px;
+  }
+
+  .tools-row {
+    margin-top: 30px;
+  }
+
+  .also-tested {
+    margin-top: 44px;
+  }
+
+  .skill-group {
+    margin-bottom: 32px;
+  }
+
+  .contact-row {
+    padding: 22px 0;
+  }
+
+  .site-footer {
+    padding-top: 42px;
+    padding-bottom: 48px;
+  }
+
+  .site-footer .footer-line {
+    font-size: 1.75rem;
   }
 }
 
