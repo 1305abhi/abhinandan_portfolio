@@ -17,9 +17,9 @@ const sans = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Abhinandan Tiwari | Software Tester",
+  title: "Abhinandan Tiwari | Quality Analyst & API/Security Testing",
   description:
-    "Portfolio of Abhinandan Tiwari, focused on QA, manual testing, API security, and release confidence."
+    "Portfolio of Abhinandan Tiwari, Quality Analyst specializing in Postman API testing, API security & RBAC auditing, and exploratory QA."
 };
 
 export default function RootLayout({

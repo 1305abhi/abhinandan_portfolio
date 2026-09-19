@@ -1,4 +1,3 @@
-import { AdditionalWorkList } from "@/components/AdditionalWorkList";
 import { CaseStudyCard } from "@/components/CaseStudyCard";
 import { ContactRow } from "@/components/ContactRow";
 import { ExperienceItem } from "@/components/ExperienceItem";
@@ -16,9 +15,9 @@ export default function Home() {
 
       <main className="site-shell">
         <Hero
-          kicker="Hey, I'm"
-          nameLines={["Abhinandan", "Tiwari"]}
-          role="QA Tester"
+          kicker={portfolio.hero.kicker}
+          nameLines={portfolio.hero.nameLines}
+          role={portfolio.hero.role}
           tags={portfolio.hero.tags}
         />
 
@@ -32,7 +31,7 @@ export default function Home() {
           <SectionHeader number="01" title="Experience" />
           <div className="timeline-list">
             {portfolio.experience.map((item) => (
-              <ExperienceItem key={item.role} item={item} />
+              <ExperienceItem key={`${item.company}-${item.role}-${item.period}`} item={item} />
             ))}
           </div>
         </section>
@@ -44,10 +43,6 @@ export default function Home() {
               <CaseStudyCard key={item.title} item={item} index={index + 1} />
             ))}
           </div>
-          <AdditionalWorkList
-            items={portfolio.additionalWork}
-            startIndex={portfolio.caseStudies.length}
-          />
         </section>
 
         <section className="section-block" id="skills">
@@ -119,7 +114,9 @@ export default function Home() {
           </div>
           <div>
             <a href={`mailto:${portfolio.contact.email}`}>{portfolio.contact.email}</a>
-            <a href={portfolio.contact.linkedinUrl}>LinkedIn / abhinandantiwari</a>
+            <a href={portfolio.contact.linkedinUrl} target="_blank" rel="noopener noreferrer">
+              LinkedIn / abhinandantiwari
+            </a>
           </div>
         </Reveal>
       </main>

@@ -5,6 +5,15 @@ dist
 .vercel
 *.log
 .env*
+*-Dell*
+*-Dell-2*
+hero-image.jpeg
+QL/
+public/extracted-frame.png
+public/hero-video.mp4
+public/window-overlay.png
+components/RevealOnScroll.tsx
+
 
 # TypeScript incremental build artifact
 tsconfig.tsbuildinfo
