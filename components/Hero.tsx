@@ -50,6 +50,15 @@ export function Hero({ kicker, nameLines, role, tags }: HeroProps) {
 
   return (
     <section className="hero" aria-label="Hero" id="top" ref={heroRef}>
+      <svg
+        className="hero-thread"
+        viewBox="0 0 1440 900"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <path d="M560 620 C650 620 685 575 755 600 S835 685 900 600 C970 510 900 390 1010 315 C1125 238 1288 292 1305 410 C1322 526 1190 620 1080 545 C1005 493 1045 372 1120 345" />
+        <circle cx="1120" cy="345" r="5" />
+      </svg>
       <motion.div
         className="hero-copy"
         variants={parent}
@@ -97,6 +106,35 @@ export function Hero({ kicker, nameLines, role, tags }: HeroProps) {
             </motion.li>
           ))}
         </motion.ul>
+
+        <motion.aside
+          className="qa-console"
+          variants={rise}
+          aria-label="Quality assurance snapshot"
+        >
+          <div className="qa-console-top">
+            <span><i aria-hidden="true" /> QA SIGNAL / 01</span>
+            <span>FIELD NOTES</span>
+          </div>
+          <div className="qa-console-metrics">
+            <div>
+              <span className="qa-console-label">API COVERAGE</span>
+              <strong>80<span>+</span></strong>
+              <small>ENDPOINTS VALIDATED</small>
+            </div>
+            <div>
+              <span className="qa-console-label">SECURITY FINDINGS</span>
+              <strong>02</strong>
+              <small>ACCESS FLAWS RETESTED</small>
+            </div>
+          </div>
+          <div className="qa-console-footer">
+            <span className="qa-console-status">
+              <i aria-hidden="true" /> PATCHES RETESTED
+            </span>
+            <span>POSTMAN / BURP SUITE</span>
+          </div>
+        </motion.aside>
 
         <motion.div className="hero-actions" variants={rise}>
           <a className="primary-link" href="#case-studies">

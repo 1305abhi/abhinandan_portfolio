@@ -1,18 +1,17 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter } from "next/font/google";
+import { Anton, Archivo } from "next/font/google";
 import "./globals.css";
 
-const display = Cormorant_Garamond({
+const display = Anton({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  weight: "400",
+  variable: "--font-anton",
   display: "swap"
 });
 
-const sans = Inter({
+const sans = Archivo({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-archivo",
   display: "swap"
 });
 

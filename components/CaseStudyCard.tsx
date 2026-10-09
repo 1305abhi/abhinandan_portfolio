@@ -29,6 +29,7 @@ export function CaseStudyCard({ item, index }: CaseStudyCardProps) {
   return (
     <motion.article
       className={`case-card ${item.featured ? "featured" : ""}`}
+      data-index={String(index).padStart(2, "0")}
       variants={card}
       initial="hidden"
       whileInView="visible"

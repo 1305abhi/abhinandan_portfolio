@@ -1,14 +1,17 @@
 :root {
-  --background: #f6efe6;
-  --text: #17110d;
-  --muted: #5f5a54;
-  --line: #ded3c5;
-  --accent: #b74725;
+  --background: #f5f5f5;
+  --text: #1a1a1a;
+  --muted: #6b6b6b;
+  --line: #e5e5e5;
+  --accent: #dd4423;
+  --accent-deep: #c93a1b;
+  --pine: #1e4b44;
   --accent-soft: color-mix(in srgb, var(--accent) 12%, transparent);
   --max-width: 1080px;
-  --font-display: var(--font-cormorant), "Cormorant Garamond", "Bodoni 72", "Bodoni MT", Didot, Georgia, serif;
-  --font-sans: var(--font-inter), Inter, "Segoe UI", Arial, sans-serif;
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-display: var(--font-anton), Impact, "Arial Narrow", sans-serif;
+  --font-sans: var(--font-archivo), "Segoe UI", Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", "Courier New", monospace;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -17,7 +20,7 @@
 
 html {
   scroll-behavior: smooth;
-  scrollbar-color: #ded3c5 var(--background);
+  scrollbar-color: #c8c8c8 var(--background);
   scrollbar-width: thin;
 }
 
@@ -33,7 +36,7 @@ Option 3: subtle scrollbar with accent on hover.
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cdbfad;
+  background: #c8c8c8;
   border: 3px solid var(--background);
   border-radius: 999px;
 }
@@ -108,8 +111,10 @@ a {
 }
 
 .brand {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 1.85rem;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -0.04em;
   line-height: 1;
 }
 
@@ -126,7 +131,10 @@ a {
 .site-nav nav a {
   position: relative;
   color: var(--muted);
-  font-size: 1.05rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   transition: color 0.25s ease;
 }
 
@@ -157,6 +165,8 @@ a {
 }
 
 .hero {
+  position: relative;
+  isolation: isolate;
   display: grid;
   grid-template-columns: minmax(340px, 0.86fr) minmax(420px, 1.14fr);
   align-items: end;
@@ -164,6 +174,41 @@ a {
   min-height: calc(100vh - 86px);
   padding: 74px max(24px, calc((100vw - 1740px) / 2 + 72px)) 0;
   border-bottom: 1px solid var(--line);
+  background: linear-gradient(115deg, #f5f5f5 0%, #f5f5f5 68%, #ededed 68%, #ededed 100%);
+}
+
+.hero-thread {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hero-thread path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 1500;
+  stroke-dashoffset: 1500;
+  animation: thread-draw 2.2s var(--ease-out) 0.6s forwards;
+}
+
+.hero-thread circle {
+  fill: var(--accent);
+  opacity: 0;
+  animation: thread-dot 0.35s ease 2.55s forwards;
+}
+
+@keyframes thread-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes thread-dot {
+  to { opacity: 1; }
 }
 
 .hero-copy {
@@ -173,23 +218,29 @@ a {
 
 .hero-kicker {
   margin: 0 0 32px;
-  font-size: 1.15rem;
+  color: var(--muted);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
 .hero-copy h1 {
   margin: 0;
   font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(6.3rem, 8.1vw, 10.8rem);
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 0.88;
+  font-size: clamp(4.6rem, 7.1vw, 9.2rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+  line-height: 0.82;
+  text-transform: uppercase;
 }
 
 .hero-role {
   margin: 32px 0 36px;
-  font-family: var(--font-display), Georgia, serif;
-  font-size: clamp(1.8rem, 2.5vw, 2.8rem);
-  line-height: 1.15;
+  font-family: var(--font-sans), Arial, sans-serif;
+  font-size: clamp(1.2rem, 1.8vw, 1.65rem);
+  font-weight: 600;
+  line-height: 1.25;
   color: var(--accent);
 }
 
@@ -197,7 +248,7 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 12px 20px;
-  margin: 0 0 66px;
+  margin: 0 0 26px;
   padding: 0;
   list-style: none;
 }
@@ -206,7 +257,7 @@ a {
   display: flex;
   align-items: center;
   gap: 20px;
-  font-size: 1.05rem;
+  font-size: 0.86rem;
 }
 
 .hero-tags li:not(:first-child)::before {
@@ -221,6 +272,94 @@ a {
   display: flex;
   align-items: center;
   gap: 34px;
+}
+
+.qa-console {
+  width: min(100%, 470px);
+  margin: 0 0 28px;
+  padding: 16px 18px 14px;
+  color: #f5f5f5;
+  background: #1a1a1a;
+  border: 1px solid #343434;
+  box-shadow: 8px 8px 0 color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
+.qa-console-top,
+.qa-console-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+}
+
+.qa-console-top {
+  padding-bottom: 12px;
+  color: #aaa;
+  border-bottom: 1px solid #414141;
+}
+
+.qa-console-top span:first-child,
+.qa-console-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qa-console-top i,
+.qa-console-status i {
+  width: 7px;
+  height: 7px;
+  display: inline-block;
+  border-radius: 50%;
+  background: #62c7a3;
+  box-shadow: 0 0 12px #62c7a3;
+}
+
+.qa-console-metrics {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 14px 0;
+}
+
+.qa-console-metrics > div + div {
+  padding-left: 18px;
+  border-left: 1px solid #414141;
+}
+
+.qa-console-label,
+.qa-console-metrics small {
+  display: block;
+  color: #aaa;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.56rem;
+  letter-spacing: 0.06em;
+}
+
+.qa-console-metrics strong {
+  display: block;
+  margin: 3px 0 1px;
+  color: #fff;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.qa-console-metrics strong span {
+  color: var(--accent);
+}
+
+.qa-console-footer {
+  padding-top: 12px;
+  color: #aaa;
+  border-top: 1px solid #414141;
+}
+
+.qa-console-status {
+  color: #62c7a3;
 }
 
 .hero-actions a {
@@ -249,9 +388,10 @@ a {
   align-items: flex-start;
   gap: 10px;
   color: var(--accent);
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 1.25rem;
-  font-style: italic;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 .portrait-note span {
@@ -313,15 +453,19 @@ a {
 
 .section-heading span {
   color: var(--accent);
-  font-size: 0.75rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
 }
 
 .section-heading h2 {
   margin: 0;
   font-family: var(--font-display), Georgia, serif;
   font-size: clamp(2.4rem, 4vw, 4rem);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
 .timeline-list {
@@ -378,12 +522,46 @@ a {
 }
 
 .case-card {
+  position: relative;
+  overflow: hidden;
   border: 1px solid var(--line);
+  background: #fff;
   padding: 48px;
+}
+
+.case-card::before {
+  content: attr(data-index);
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  color: var(--accent);
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 5.5rem;
+  line-height: 0.8;
+  opacity: 0.09;
+  pointer-events: none;
+}
+
+.case-card::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent) 0 22%, transparent 22%);
+  opacity: 0.8;
+}
+
+.case-meta,
+.case-card h3,
+.case-columns,
+.tools-row {
+  position: relative;
+  z-index: 1;
 }
 
 .case-card.featured {
   border-color: var(--accent);
+  box-shadow: inset 4px 0 0 var(--accent);
 }
 
 .case-meta {
@@ -398,6 +576,7 @@ a {
 .case-column h4,
 .tools-label {
   color: var(--accent);
+  font-family: var(--font-mono), monospace;
   font-size: 0.68rem;
   font-weight: 500;
   letter-spacing: 0.26em;
@@ -422,6 +601,15 @@ a {
   margin: 0 0 14px;
 }
 
+.case-column h4::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 9px 1px 0;
+  background: var(--accent);
+}
+
 .case-column p {
   margin: 0;
   color: #25201c;
@@ -442,6 +630,10 @@ a {
 .tools-row span:not(.tools-label) {
   color: var(--muted);
   font-size: 0.74rem;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fafafa;
 }
 
 /* Compact "Also tested" rows beneath the full case-study cards. Borrows the
@@ -636,20 +828,22 @@ a {
   gap: 32px;
   padding: 54px max(24px, calc((100vw - var(--max-width)) / 2)) 64px;
   border-top: 1px solid var(--line);
+  background: var(--text);
 }
 
 .site-footer p,
 .site-footer a {
   display: block;
   margin: 0 0 12px;
-  color: #2b2927;
+  color: #f5f5f5;
   font-size: 1.05rem;
   overflow-wrap: anywhere;
 }
 
 .site-footer .footer-line {
-  font-family: var(--font-display), Georgia, serif;
-  font-size: 2rem;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-size: 2.2rem;
+  text-transform: uppercase;
 }
 
 .site-footer div:last-child {
@@ -665,6 +859,10 @@ a {
    Placed BEFORE the phone block so phone rules still win ≤760px.
    ------------------------------------------------------------ */
 @media (max-width: 1024px) {
+  .hero-thread {
+    display: none;
+  }
+
   .hero {
     grid-template-columns: 1fr;
     gap: 40px;
@@ -770,7 +968,7 @@ a {
 
   .hero-role {
     margin: 24px 0 30px;
-    font-size: clamp(1.7rem, 7.4vw, 2.1rem);
+    font-size: clamp(1.1rem, 5.2vw, 1.45rem);
   }
 
   .hero-tags {
@@ -1036,7 +1234,7 @@ a {
 
 .case-card:hover {
   border-color: var(--accent);
-  box-shadow: 0 26px 50px -32px rgba(23, 17, 13, 0.5);
+  box-shadow: 0 26px 50px -32px rgba(26, 26, 26, 0.38);
 }
 
 /* Contact rows: nudge the arrow and warm the value on hover. */
