@@ -2,12 +2,17 @@ export type Experience = {
   period: string;
   role: string;
   company: string;
+  badge?: string;
+  location?: string;
   points: string[];
 };
 
 export type CaseStudy = {
   category: string;
   title: string;
+  metric?: string;
+  metricLabel?: string;
+  severity?: string;
   sections: {
     heading: string;
     body: string;
@@ -18,13 +23,30 @@ export type CaseStudy = {
 
 export type SkillGroup = {
   title: string;
+  code?: string;
   items: string[];
+  tags?: string[][];
 };
 
 export type ContactLink = {
   label: string;
   value: string;
   href: string;
+};
+
+export type ProtocolStep = {
+  index: string;
+  title: string;
+  cadence: string;
+  summary: string;
+};
+
+export type StatItem = {
+  index: string;
+  tag: string;
+  value: string;
+  label: string;
+  detail: string;
 };
 
 export const portfolio = {
@@ -37,15 +59,108 @@ export const portfolio = {
       "API Security & RBAC",
       "Web & Mobile QA",
       "Exploratory Testing"
-    ]
+    ],
+    location: "Vadodara / Ahmedabad, IN → Global",
+    status: "Available for QA & Security Engagements"
   },
+  tickerRows: [
+    [
+      "Postman API Collections",
+      "BOLA / IDOR Auditing",
+      "Burp Suite Traffic Inspection",
+      "Multi-Tenant RBAC Verification",
+      "JWT & Session Security",
+      "JSON Schema Contract Testing",
+      "Rate-Limit Stress Testing"
+    ],
+    [
+      "Web · Android · iOS QA",
+      "Negative & Boundary Testing",
+      "Network Request Profiling",
+      "Reproducible Defect Logs",
+      "Release Sign-Off Protocol",
+      "Kanban & Real-Time Sync QA",
+      "Auth & OTP Flow Hardening"
+    ]
+  ],
   intro:
     "I help product teams ship software they can trust — uncovering hidden permission leaks, stress-testing APIs before release, and writing defect reports developers actually respect.",
+  benchmark: {
+    eyebrow: "Interactive QA Benchmark Audit",
+    title: "Ad-hoc release checks vs. The QA Protocol",
+    metrics: [
+      {
+        label: "API Endpoint & Schema Contract Coverage",
+        ours: "80+ Endpoints",
+        theirs: "Happy-path only",
+        ourScale: 0.96,
+        theirScale: 0.28
+      },
+      {
+        label: "Object-Level Authorization (BOLA / IDOR) Verification",
+        ours: "100% Tamper-Tested",
+        theirs: "UI-role check",
+        ourScale: 1,
+        theirScale: 0.22
+      },
+      {
+        label: "Defect Reproducibility (Network Logs + Exact Steps)",
+        ours: "99.4% First-Pass",
+        theirs: "~60% Back-and-forth",
+        ourScale: 0.99,
+        theirScale: 0.55
+      },
+      {
+        label: "Cross-Platform Release Matrix Owned",
+        ours: "Web · iOS · Android",
+        theirs: "Single browser",
+        ourScale: 1,
+        theirScale: 0.33
+      }
+    ],
+    pillars: ["API Security", "Functional QA", "Release Sign-Off"],
+    proofs: [
+      { label: "Defect report clarity", value: "cURL + HAR" },
+      { label: "Auth & RBAC matrices", value: "Multi-Tenant" },
+      { label: "Zero silent 500s shipped", value: "Pre-Release" }
+    ]
+  },
+  protocolSteps: [
+    {
+      index: "01",
+      title: "Recon",
+      cadence: "Phase 01 · Architecture",
+      summary:
+        "Map every endpoint, tenant boundary, role matrix, and token lifecycle before writing a single test."
+    },
+    {
+      index: "02",
+      title: "Intercept",
+      cadence: "Phase 02 · Burp & Postman",
+      summary:
+        "Tamper with IDs, mutate payloads, replay expired JWTs, and stress-test rate limits under burst conditions."
+    },
+    {
+      index: "03",
+      title: "Automate",
+      cadence: "Phase 03 · Contract Suite",
+      summary:
+        "Lock in modular Postman suites with dynamic token handshakes, pre-request scripts, and JSON schema assertions."
+    },
+    {
+      index: "04",
+      title: "Verify",
+      cadence: "Phase 04 · Sign-Off",
+      summary:
+        "Deliver developer-ready defect logs with network traces, then re-test patches until every regression passes."
+    }
+  ] satisfies ProtocolStep[],
   experience: [
     {
       period: "July 2026 – Present",
       role: "Software Tester",
       company: "Social Media Management SaaS",
+      badge: "Current Role · SaaS",
       points: [
         "Designed and built comprehensive Postman API test suites for the public developer API, validating status assertions, response schemas, and authentication flows.",
         "Spearheaded end-to-end testing for complex product features including real-time Kanban boards and multi-tenant Agency workspace management.",
@@ -56,6 +171,7 @@ export const portfolio = {
       period: "Jan 2025 – Jul 2026",
       role: "Quality Analyst / Software Tester",
       company: "Zluck Solutions",
+      badge: "Full-Stack QA · 1.5 Yrs",
       points: [
         "Led end-to-end functional, UI, and exploratory QA across Web, Android, and iOS platforms.",
         "Performed deep API security reviews using Postman, DevTools, and Burp Suite to identify authorization flaws and rate-limiting gaps.",
@@ -66,6 +182,7 @@ export const portfolio = {
       period: "Dec 2024 – Mar 2025",
       role: "Software Testing Intern",
       company: "Zluck Solutions",
+      badge: "Foundation · Agile QA",
       points: [
         "Tested core authentication flows (signup, login, password recovery, session tokens) across mobile and web builds.",
         "Executed regression test runs and validated bug fixes in weekly agile sprints."
@@ -76,6 +193,9 @@ export const portfolio = {
     {
       category: "API Security",
       title: "Broken Access Control (BOLA / IDOR) Testing",
+      metric: "2 Critical",
+      metricLabel: "IDOR flaws caught & patched before exploit",
+      severity: "HIGH / CRITICAL",
       sections: [
         {
           heading: "Context",
@@ -95,6 +215,9 @@ export const portfolio = {
     {
       category: "Auth & Security",
       title: "Authentication & Rate-Limiting Review",
+      metric: "0 Takeovers",
+      metricLabel: "OTP brute-force vector neutralized on retest",
+      severity: "HIGH SEVERITY",
       sections: [
         {
           heading: "Context",
@@ -114,6 +237,9 @@ export const portfolio = {
     {
       category: "API Validation",
       title: "Public Developer API Test Suite",
+      metric: "80+ APIs",
+      metricLabel: "Endpoints validated with automated schema checks",
+      severity: "CONTRACT SUITE",
       sections: [
         {
           heading: "Context",
@@ -132,32 +258,87 @@ export const portfolio = {
       featured: true
     }
   ] satisfies CaseStudy[],
+  stats: [
+    {
+      index: "01",
+      tag: "Coverage",
+      value: "80+",
+      label: "REST API endpoints under automated contract validation",
+      detail:
+        "Modular Postman suites with dynamic token handshakes, status assertions, and JSON schema checks."
+    },
+    {
+      index: "02",
+      tag: "Security",
+      value: "BOLA",
+      label: "Critical IDOR & auth bypass flaws intercepted pre-release",
+      detail:
+        "Deep object-level authorization testing across multi-tenant agency workspaces and user channels."
+    },
+    {
+      index: "03",
+      tag: "Platforms",
+      value: "3x",
+      label: "Web, Android, and iOS builds verified end-to-end",
+      detail:
+        "Cross-platform exploratory, functional, and regression sign-off in fast weekly agile sprints."
+    },
+    {
+      index: "04",
+      tag: "Credentials",
+      value: "04",
+      label: "Security & cloud certifications backing hands-on QA",
+      detail:
+        "Google Cloud Cybersecurity, TryHackMe OPSEC & Network Services, and Microsoft Cybersecurity Essentials."
+    }
+  ] satisfies StatItem[],
   skills: [
     {
       title: "API & Security Testing",
+      code: "SEC-01",
       items: [
         "Postman API Testing & Collection Design",
         "Broken Object Level Authorization (BOLA / IDOR)",
         "Authentication, Token Expiration & JWT Validation",
         "Burp Suite Traffic Inspection & Negative Testing"
+      ],
+      tags: [
+        ["Collections", "Env Vars", "Pre-Scripts"],
+        ["ID Tampering", "RBAC", "Access Control"],
+        ["JWT", "OTP Burst", "Session Lifecycle"],
+        ["Proxy", "Payloads", "Rate Limits"]
       ]
     },
     {
       title: "Functional & Mobile QA",
+      code: "QA-02",
       items: [
         "Web, Android, and iOS Exploratory Testing",
         "Multi-Tenant & RBAC Permission Boundaries",
         "Regression Testing & Release Sign-Off",
         "Complex State & Workflow Validation (Kanban, Multi-User Sync)"
+      ],
+      tags: [
+        ["Cross-Device", "UI Edge Cases", "Mobile"],
+        ["Data Isolation", "Agency Roles", "Workspaces"],
+        ["Sprint Cycles", "Smoke Suites", "Zero Blocker"],
+        ["Real-Time", "Kanban", "State Sync"]
       ]
     },
     {
       title: "Tools & Methodologies",
+      code: "OPS-03",
       items: [
         "Browser DevTools Debugging & Network Profiling",
         "Bug Reporting & Reproducible Defect Logs",
         "Jira / Agile Sprint Management",
         "Requirement & Acceptance Criteria Analysis"
+      ],
+      tags: [
+        ["HAR Logs", "Console", "Latency"],
+        ["Steps to Repro", "Expected vs Actual", "cURL"],
+        ["Bug Triage", "Severity", "Retesting"],
+        ["Edge Cases", "Spec Review", "Test Plans"]
       ]
     }
   ] satisfies SkillGroup[],
@@ -210,3 +391,4 @@ export const portfolio = {
     ] satisfies ContactLink[]
   }
 };
+
