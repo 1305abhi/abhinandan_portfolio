@@ -10,9 +10,9 @@ import {
   StaggerItem,
   StatGrid
 } from "@/components/motion";
-import { SectionHeader, SectionRibbon } from "@/components/SectionHeader";
+import { SectionHeader } from "@/components/SectionHeader";
 import { SiteNav } from "@/components/SiteNav";
-import { SkillGroup } from "@/components/SkillGroup";
+import { CapabilitiesSection } from "@/components/SkillGroup";
 import { portfolio } from "@/data/portfolio";
 
 export default function Home() {
@@ -26,33 +26,14 @@ export default function Home() {
           nameLines={portfolio.hero.nameLines}
           role={portfolio.hero.role}
           tags={portfolio.hero.tags}
-          location={portfolio.hero.location}
           status={portfolio.hero.status}
           tickerRows={portfolio.tickerRows}
         />
 
-        {/* 01 // CAPABILITIES & SKILLS */}
-        <SectionRibbon index="01" label="Capabilities" />
-
-        <section className="kk-wrap section-block" id="skills">
-          <span aria-hidden="true" className="gutter-thread gutter-thread-right" />
-          <SectionHeader
-            number="01"
-            eyebrow="Capabilities"
-            title="What I test."
-            accentTitle="Under one roof."
-            note="API security, functional QA & tooling. One tester."
-          />
-          <div className="skill-grid">
-            {portfolio.skills.map((group, idx) => (
-              <SkillGroup key={group.title} group={group} groupIndex={idx} />
-            ))}
-          </div>
-        </section>
+        {/* 01 // CAPABILITIES & SKILLS (Minimal Architectural Ledger) */}
+        <CapabilitiesSection skills={portfolio.skills} />
 
         {/* 02 // QA EXECUTION WORKBENCH & 4-STEP PROTOCOL DECK */}
-        <SectionRibbon index="02" label="QA Execution Workbench" flip />
-
         <section className="section-block-flush" id="protocol">
           <BenchmarkAndDeck
             intro={portfolio.intro}
@@ -61,8 +42,6 @@ export default function Home() {
         </section>
 
         {/* 03 // DOMAIN SPECIALIZATION (PINE) & EXPERIENCE */}
-        <SectionRibbon index="03" label="Experience & Depth" />
-
         <section className="section-block-flush" id="experience">
           <PineFeaturePanel />
 
@@ -88,8 +67,6 @@ export default function Home() {
         </section>
 
         {/* 04 // CASE STUDIES & RESULTS IN NUMBERS */}
-        <SectionRibbon index="04" label="Case Studies" flip />
-
         <section className="kk-wrap section-block" id="case-studies">
           <span aria-hidden="true" className="gutter-thread gutter-thread-right" />
           <SectionHeader
@@ -102,9 +79,23 @@ export default function Home() {
 
           <div className="case-cord-track">
             <span aria-hidden="true" className="case-cord-line" />
+            
+            {/* Dossier Deck Telemetry Strip */}
+            <div className="case-deck-info">
+              <span className="pulse-dot-secondary" aria-hidden="true" />
+              <span className="t-label case-deck-info-text">
+                {portfolio.caseStudies.length} AUDIT DOSSIERS &middot; SCROLL TO EXPLORE STACK
+              </span>
+            </div>
+
             <div className="case-list">
               {portfolio.caseStudies.map((item, index) => (
-                <CaseStudyCard key={item.title} item={item} index={index + 1} />
+                <CaseStudyCard
+                  key={item.title}
+                  item={item}
+                  index={index + 1}
+                  total={portfolio.caseStudies.length}
+                />
               ))}
             </div>
           </div>
@@ -190,8 +181,6 @@ export default function Home() {
         </section>
 
         {/* 05 // CONTACT & INTERACTIVE BRIEF BUILDER */}
-        <SectionRibbon index="05" label="Contact" />
-
         <section className="kk-wrap section-block contact-section" id="contact">
           <span aria-hidden="true" className="gutter-thread gutter-thread-left" />
           <div className="contact-grid">

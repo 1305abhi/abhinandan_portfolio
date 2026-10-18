@@ -37,6 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      data-tone="obsidian"
       className={`${anton.variable} ${archivo.variable} ${plexMono.variable}`}
       suppressHydrationWarning
     >

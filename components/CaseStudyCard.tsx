@@ -8,91 +8,80 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 type CaseStudyCardProps = {
   item: CaseStudy;
   index: number;
+  total?: number;
 };
 
-export function CaseStudyCard({ item, index }: CaseStudyCardProps) {
+export function CaseStudyCard({ item, index, total = 4 }: CaseStudyCardProps) {
   const reduce = useReducedMotion();
 
   const card: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 36 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } }
-  };
-  const columns: Variants = {
-    hidden: {},
-    visible: { transition: { staggerChildren: 0.1, delayChildren: 0.12 } }
-  };
-  const column: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 18 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } }
+    hidden: { opacity: 0, y: reduce ? 0 : 28 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } }
   };
 
   const idxStr = String(index).padStart(2, "0");
+  // Staggered sticky top offset: each card tabs down by 32px so previous audit headers remain visible
+  const topOffset = `calc(var(--nav-h, 68px) + 20px + ${(index - 1) * 32}px)`;
 
   return (
     <motion.article
-      className={`case-card kk-card ${item.featured ? "featured" : ""}`}
+      className="case-minimal-card is-stacked-deck"
+      style={{
+        top: topOffset,
+        zIndex: index
+      }}
       variants={card}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.25 }}
-      whileHover={reduce ? undefined : { y: -5 }}
-      transition={{ type: "spring", stiffness: 260, damping: 24 }}
+      viewport={{ once: true, amount: 0.15 }}
+      data-audit-index={idxStr}
     >
-      {/* Top knot & drop cord inspired by kreativeknotmedia.com #work */}
-      <span className="case-knot" aria-hidden="true" />
-      <span className="case-drop" aria-hidden="true" />
+      <span aria-hidden="true" className="skills-hover-bar" />
 
-      <div className="case-meta">
-        <div className="case-meta-left">
-          <span className="t-label case-category-pill">
-            <span className="diamond-dot" aria-hidden="true" />
-            {item.category}
-          </span>
+      {/* Top Meta Strip / File Dossier Header */}
+      <div className="case-minimal-top">
+        <div className="case-top-left">
+          <span className="skills-code-pill">AUDIT // {idxStr}</span>
+          <span className="case-cat-pill">{item.category}</span>
           {item.severity ? (
-            <span className="t-label case-severity-tag">{item.severity}</span>
+            <span className="case-sev-pill">{item.severity}</span>
           ) : null}
+          <span className="case-deck-badge" aria-hidden="true">
+            FILE {index} OF {total}
+          </span>
         </div>
-        <span className="t-index">CASE // {idxStr}</span>
-      </div>
-
-      <div className="case-title-banner">
-        <h3 className="kk-condensed case-title">{item.title}</h3>
-        {item.metric ? (
-          <div className="case-proof-box">
-            <span className="t-counter case-proof-val">{item.metric}</span>
-            {item.metricLabel ? (
-              <span className="t-label text-stone case-proof-label">{item.metricLabel}</span>
-            ) : null}
+        {item.metric && (
+          <div className="case-metric-badge">
+            <span className="case-metric-val">{item.metric}</span>
+            {item.metricLabel && (
+              <span className="case-metric-label">{item.metricLabel}</span>
+            )}
           </div>
-        ) : null}
+        )}
       </div>
 
-      <motion.div
-        className="case-columns"
-        variants={columns}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.35 }}
-      >
-        {item.sections.map((section, sIdx) => (
-          <motion.div className="case-column" key={section.heading} variants={column}>
-            <div className="case-col-head">
-              <span className="t-label text-stone">0{sIdx + 1}</span>
-              <h4 className="t-label text-vermillion-deep">{section.heading}</h4>
-            </div>
-            <p>{section.body}</p>
-          </motion.div>
-        ))}
-      </motion.div>
+      <h3 className="case-minimal-title">{item.title}</h3>
+      <span className="skills-card-divider" aria-hidden="true" />
 
-      <div className="tools-row">
-        <span className="t-label tools-label">
-          <span className="diamond-dot" aria-hidden="true" />
-          Stack &amp; Tools
-        </span>
-        <div className="tools-pills">
+      {/* 3 Clear Narrative Steps: Context, Approach, Outcome */}
+      <div className="case-narrative-grid">
+        {item.sections.map((section, sIdx) => (
+          <div className="case-narrative-col" key={section.heading}>
+            <div className="case-col-label">
+              <span className="case-step-num">0{sIdx + 1}</span>
+              <span className="case-step-heading">{section.heading}</span>
+            </div>
+            <p className="case-step-body">{section.body}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Minimal Tools Row */}
+      <div className="case-tools-footer">
+        <span className="case-tools-tag">STACK &middot; TOOLS</span>
+        <div className="case-tools-list">
           {item.tools.map((tool) => (
-            <span key={tool} className="t-label tool-pill">
+            <span key={tool} className="case-tool-chip">
               {tool}
             </span>
           ))}
@@ -101,4 +90,3 @@ export function CaseStudyCard({ item, index }: CaseStudyCardProps) {
     </motion.article>
   );
 }
-

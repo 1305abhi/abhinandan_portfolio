@@ -164,26 +164,26 @@ const QA_WORKBENCH_MODULES = [
     id: "contract",
     code: "MOD-01",
     tag: "80+ ENDPOINTS",
-    title: "Public Developer API Contract Suites",
-    subtitle: "Modular Postman Collections & Schema Validation",
-    deliverable: "Automated Postman Suite + Env Matrix",
+    title: "Public Developer API Test Suites",
+    subtitle: "Automated Postman Suites & Schema Validation",
+    deliverable: "Automated Postman Suite + Environment Matrix",
     tools: ["Postman", "JSON Schema", "Pre-Request Scripts", "REST APIs"],
     summary:
-      "Built modular Postman collections for public developer APIs using dynamic token handshakes, chained environment variables, and strict status/schema assertions across 80+ endpoints.",
+      "Created automated Postman test collections for public developer APIs, handling login tokens automatically and verifying HTTP status codes, data types, and response structure across 80+ endpoints.",
     assertions: [
       {
         code: "ASSERT-01",
-        check: "Status code & response header contracts (200, 201, 400, 401, 403, 422)",
+        check: "Status code & response header checks (200, 201, 400, 401, 403, 422)",
         status: "80+ APIs LOCKED"
       },
       {
         code: "ASSERT-02",
-        check: "Strict JSON schema structure, nested data types & required field validation",
+        check: "JSON schema validation for nested structures and required data fields",
         status: "SCHEMA VERIFIED"
       },
       {
         code: "ASSERT-03",
-        check: "Dynamic pre-request auth token handshakes & negative payload rejection",
+        check: "Automatic auth token handling and invalid payload rejection",
         status: "AUTOMATED"
       }
     ],
@@ -199,26 +199,26 @@ const QA_WORKBENCH_MODULES = [
     id: "security",
     code: "MOD-02",
     tag: "ZERO LEAKS",
-    title: "BOLA, IDOR & Multi-Tenant RBAC Auditing",
-    subtitle: "Object-Level Authorization & Workspace Isolation",
-    deliverable: "Burp Suite Tamper Log & Security Advisory",
+    title: "Access Control & Permission Audits (BOLA / IDOR)",
+    subtitle: "Data Privacy & Multi-User Workspace Isolation",
+    deliverable: "Security Tamper Log & Audit Report",
     tools: ["Burp Suite", "Postman", "Browser DevTools", "RBAC Matrix"],
     summary:
-      "Intercepted live API traffic via Burp Suite and Postman to substitute user IDs, channel IDs, and workspace headers — catching critical BOLA/IDOR flaws before production.",
+      "Intercepted live API traffic using Burp Suite and Postman, swapping user IDs, channel IDs, and workspace headers to catch unauthorized access flaws before release.",
     assertions: [
       {
         code: "SEC-01",
-        check: "Cross-user & cross-channel resource ID tampering on DELETE/PUT/PATCH routes",
+        check: "Tested swapping user and channel IDs on delete and update requests",
         status: "BOLA BLOCKED"
       },
       {
         code: "SEC-02",
-        check: "Agency multi-tenant workspace isolation & role boundary enforcement",
+        check: "Verified that multi-tenant workspaces keep client data strictly separated",
         status: "RBAC ISOLATED"
       },
       {
         code: "SEC-03",
-        check: "Horizontal & vertical privilege escalation attempts across member roles",
+        check: "Checked role permissions to prevent unauthorized privilege escalation",
         status: "403 ENFORCED"
       }
     ],
@@ -234,26 +234,26 @@ const QA_WORKBENCH_MODULES = [
     id: "auth",
     code: "MOD-03",
     tag: "BURST HARDENED",
-    title: "Authentication, Session & OTP Rate-Limit Review",
-    subtitle: "Brute-Force Protection & Token Lifecycle Hardening",
-    deliverable: "Auth Hardening & Rate-Limit Verification Dossier",
+    title: "Authentication & OTP Rate-Limiting Review",
+    subtitle: "Brute-Force Protection & Session Security",
+    deliverable: "Auth Verification Dossier & Rate-Limit Test Log",
     tools: ["Postman Runner", "Burp Intruder", "JWT Inspector", "DevTools"],
     summary:
-      "Stress-tested signup, login, password recovery, and SMS/Email OTP verification endpoints under rapid burst conditions to enforce rate limiting and lockout policies.",
+      "Tested login, registration, password reset, and SMS/Email OTP flows under rapid requests to verify rate limits and account lockout protection.",
     assertions: [
       {
         code: "AUTH-01",
-        check: "Rapid burst OTP validation testing to prevent brute-force account takeover",
+        check: "Rapid OTP submission testing to verify brute-force protection",
         status: "429 RATE-LIMITED"
       },
       {
         code: "AUTH-02",
-        check: "Account lockout threshold, cooldown timer & OTP expiration enforcement",
+        check: "Account lockout threshold, cooldown timer, and OTP expiration checks",
         status: "LOCKOUT ACTIVE"
       },
       {
         code: "AUTH-03",
-        check: "Session token invalidation on logout/password reset & JWT replay rejection",
+        check: "Session termination on logout and password reset to prevent reuse",
         status: "TOKEN HARDENED"
       }
     ],
@@ -269,26 +269,26 @@ const QA_WORKBENCH_MODULES = [
     id: "platforms",
     code: "MOD-04",
     tag: "WEB · iOS · ANDROID",
-    title: "Multi-Platform E2E & Developer-First Bug Reports",
-    subtitle: "Stateful SaaS Workflows & Reproducible Defect Logs",
-    deliverable: "cURL + HAR Defect Logs & Release Sign-Off",
+    title: "Cross-Platform QA & Developer-Friendly Bug Reports",
+    subtitle: "Web, Android & iOS Testing with Reproducible Logs",
+    deliverable: "Reproducible Bug Reports with Network Traces & Sign-Off",
     tools: ["Web QA", "Android & iOS", "HAR Network Traces", "Agile Sprints"],
     summary:
-      "Spearheaded end-to-end functional, UI, and exploratory QA for real-time Kanban boards and agency workspaces across Web, Android, and iOS with first-pass reproducible defect logs.",
+      "Tested complex features like real-time Kanban boards and multi-account workspaces across Web, Android, and iOS, providing developers with clear, reproducible bug reports.",
     assertions: [
       {
         code: "PLAT-01",
-        check: "Real-time multi-user Kanban board drag-and-drop & state sync verification",
+        check: "Real-time drag-and-drop and live sync testing on multi-user Kanban boards",
         status: "SYNC VERIFIED"
       },
       {
         code: "PLAT-02",
-        check: "Cross-platform functional, UI & regression runs across Web, Android & iOS",
+        check: "Hands-on UI, functional, and regression testing across Web, Android, and iOS",
         status: "3x PLATFORMS"
       },
       {
         code: "PLAT-03",
-        check: "Exact reproduction steps, expected-vs-actual & attached network captures",
+        check: "Clear bug reports with exact steps, screenshots, and attached network logs",
         status: "99.4% FIRST-PASS"
       }
     ],
@@ -307,339 +307,167 @@ export function BenchmarkAndDeck({
   protocolSteps
 }: BenchmarkProps) {
   const [activeIdx, setActiveIdx] = useState<number>(0);
-  const [flippedCards, setFlippedCards] = useState<Record<string, boolean>>({});
-
-  const toggleCard = (idx: string) => {
-    setFlippedCards((prev) => ({ ...prev, [idx]: !prev[idx] }));
-  };
-
   const activeModule = QA_WORKBENCH_MODULES[activeIdx] ?? QA_WORKBENCH_MODULES[0];
 
   return (
-    <div className="protocol-wrapper">
-      {/* Original QA Execution Workbench (No comparison!) */}
-      <div className="kk-wrap benchmark-block">
-        <div className="benchmark-intro-grid">
-          <div className="benchmark-intro-left">
-            <span className="t-label text-vermillion-deep section-eyebrow">
-              <span className="diamond-dot" aria-hidden="true" />
-              QA Architecture &amp; Verification Standard
-            </span>
-            <h2 className="t-xl benchmark-headline">
-              <span>Testing that</span>{" "}
-              <span className="text-vermillion">earns developer trust.</span>
+    <div className="protocol-minimal-wrapper">
+      <div className="kk-wrap">
+        {/* Minimal Section Header */}
+        <header className="protocol-minimal-header">
+          <div className="protocol-header-lead">
+            <div className="t-label skills-eyebrow-line">
+              <span className="skills-eyebrow-dot" aria-hidden="true" />
+              <span className="skills-eyebrow-index">02</span>
+              <span className="skills-eyebrow-sep">/</span>
+              <span>QA PROTOCOL</span>
+            </div>
+            <h2 className="protocol-minimal-title">
+              How I verify. <span className="skills-title-accent">The 4-step sequence.</span>
             </h2>
           </div>
-          <p className="benchmark-intro-copy">{intro}</p>
+          <p className="protocol-header-note">{intro}</p>
+        </header>
+
+        {/* 4-Phase Clean Architectural Cards */}
+        <div className="protocol-step-grid">
+          {protocolSteps.map((step) => (
+            <article key={step.index} className="protocol-step-card">
+              <span aria-hidden="true" className="protocol-hover-bar" />
+              <div className="protocol-card-top">
+                <span className="protocol-phase-pill">PHASE // {step.index}</span>
+                <span className="protocol-step-cadence">{step.cadence}</span>
+              </div>
+              <h3 className="protocol-step-title">{step.title}</h3>
+              <p className="protocol-step-summary">{step.summary}</p>
+            </article>
+          ))}
         </div>
 
-        <div className="qa-workbench-panel">
-          <div className="workbench-topbar">
-            <div className="workbench-topbar-left">
-              <span className="t-label workbench-badge-primary">
-                WORKBENCH // QA-2026
-              </span>
-              <span className="t-label text-stone">
-                Select a verification pillar to inspect my execution &amp; deliverables
-              </span>
+        {/* Minimal Interactive Workbench Detail */}
+        <div className="workbench-minimal-panel">
+          <div className="workbench-panel-head">
+            <div className="workbench-head-left">
+              <span className="t-label workbench-tag">EXECUTION BENCH</span>
+              <span className="workbench-head-title">Select a core domain to inspect execution deliverables &amp; checks:</span>
             </div>
-            <span className="t-label workbench-status-pill">
+            <span className="t-label workbench-live-chip">
               <span className="pulse-dot-secondary" aria-hidden="true" />
-              ACTIVE PROTOCOL: {activeModule.code}
+              {activeModule.code} ACTIVE
             </span>
           </div>
 
-          <div className="workbench-main-grid">
-            {/* Left Column: 4 Interactive Pillar Selector Cards */}
-            <div
-              className="workbench-rail"
-              role="tablist"
-              aria-label="Abhinandan QA Execution Pillars"
-            >
-              {QA_WORKBENCH_MODULES.map((mod, idx) => {
-                const isSelected = idx === activeIdx;
-                return (
-                  <button
-                    key={mod.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={isSelected}
-                    onClick={() => setActiveIdx(idx)}
-                    onMouseEnter={() => setActiveIdx(idx)}
-                    className={`workbench-tab-card ${isSelected ? "is-active" : ""}`}
-                  >
-                    <div className="workbench-tab-head">
-                      <span className="t-label workbench-tab-code">{mod.code}</span>
-                      <span className="t-label workbench-tab-tag">{mod.tag}</span>
-                    </div>
-                    <h3 className="kk-condensed workbench-tab-title">{mod.title}</h3>
-                    <span className="t-label workbench-tab-sub">{mod.subtitle}</span>
-                  </button>
-                );
-              })}
-            </div>
+          {/* Module Selector Pill Tabs */}
+          <div className="workbench-tab-row" role="tablist" aria-label="Verification domain modules">
+            {QA_WORKBENCH_MODULES.map((mod, idx) => {
+              const isSelected = idx === activeIdx;
+              return (
+                <button
+                  key={mod.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={isSelected}
+                  onClick={() => setActiveIdx(idx)}
+                  className={`workbench-tab-pill ${isSelected ? "is-active" : ""}`}
+                >
+                  <span className="tab-pill-code">{mod.code}</span>
+                  <span className="tab-pill-title">{mod.title}</span>
+                </button>
+              );
+            })}
+          </div>
 
-            {/* Right Column: Live Execution Blueprint & Artifact Trace */}
-            <div className="workbench-stage" key={activeModule.id} role="tabpanel">
-              <div className="workbench-stage-header">
-                <div>
-                  <span className="t-label text-vermillion-deep">
-                    {activeModule.code} &middot; {activeModule.subtitle}
-                  </span>
-                  <h4 className="t-l workbench-stage-title">{activeModule.title}</h4>
-                </div>
-                <div className="workbench-deliverable-box">
-                  <span className="t-label text-stone">PRIMARY DELIVERABLE</span>
-                  <span className="t-label workbench-deliverable-val">
-                    {activeModule.deliverable}
-                  </span>
-                </div>
+          {/* Clean 2-Column Execution Detail */}
+          <div className="workbench-detail-grid" key={activeModule.id}>
+            <div className="workbench-detail-left">
+              <div className="workbench-module-header">
+                <span className="workbench-deliverable-chip">DELIVERABLE: {activeModule.deliverable}</span>
+                <h4 className="workbench-module-title">{activeModule.title}</h4>
+                <p className="workbench-module-summary">{activeModule.summary}</p>
               </div>
 
-              <p className="workbench-stage-summary">{activeModule.summary}</p>
-
-              <div className="workbench-assertions-block">
-                <div className="workbench-section-label">
-                  <span className="t-label text-stone">
-                    KEY ASSERTIONS &amp; CHECKS EXECUTED
-                  </span>
-                  <span className="t-label text-vermillion-deep">
-                    3 / 3 VERIFIED
-                  </span>
-                </div>
-                <ul className="workbench-assertions-list">
+              <div className="workbench-checks-block">
+                <span className="t-label workbench-checks-title">KEY VERIFICATIONS EXECUTED:</span>
+                <ul className="workbench-checks-list">
                   {activeModule.assertions.map((a) => (
-                    <li key={a.code} className="workbench-assertion-row">
-                      <span className="t-label assertion-code">{a.code}</span>
-                      <span className="assertion-check">{a.check}</span>
-                      <span className="t-label assertion-status">{a.status}</span>
+                    <li key={a.code} className="workbench-check-item">
+                      <span className="check-status-pill">{a.status}</span>
+                      <span className="check-text">{a.check}</span>
                     </li>
                   ))}
                 </ul>
               </div>
+            </div>
 
-              {/* Dark Retro Blueprint Telemetry Console */}
-              <div className="workbench-trace-console">
-                <div className="workbench-trace-head">
-                  <span className="t-label">{activeModule.traceTitle}</span>
-                  <div className="workbench-tools-list">
-                    {activeModule.tools.map((tool) => (
-                      <span key={tool} className="t-label workbench-tool-chip">
-                        {tool}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="workbench-trace-body">
-                  {activeModule.traceLines.map((line, i) => (
-                    <code key={i} className="workbench-trace-line">
-                      {line}
-                    </code>
+            <div className="workbench-detail-right">
+              <div className="workbench-trace-header">
+                <span className="t-label trace-head-title">{activeModule.traceTitle}</span>
+                <div className="trace-tools-row">
+                  {activeModule.tools.map((t) => (
+                    <span key={t} className="trace-tool-pill">{t}</span>
                   ))}
                 </div>
+              </div>
+              <div className="workbench-trace-lines">
+                {activeModule.traceLines.map((line, i) => (
+                  <div key={i} className="trace-line">{line}</div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Part B: 4-Step QA Protocol Playing Card Deck */}
-      <div className="kk-wrap deck-section">
-        <svg
-          aria-hidden="true"
-          className="deck-cord-svg"
-          viewBox="0 0 1000 320"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M 0 150 C 260 40, 420 280, 640 160 S 900 60, 1000 180"
-            fill="none"
-            stroke="var(--accent)"
-            strokeWidth="2"
-            strokeDasharray="6 6"
-          />
-        </svg>
-
-        <header className="deck-header">
-          <div>
-            <span className="t-label text-vermillion-deep section-eyebrow">
-              <span className="diamond-dot" aria-hidden="true" />
-              Recon &rarr; Intercept &rarr; Automate &rarr; Verify
-            </span>
-            <h3 className="t-xl">
-              The 4-step <span className="text-vermillion">QA protocol.</span>
-            </h3>
-          </div>
-          <span className="t-label text-stone">
-            Click any card to flip &middot; Deal the deck &darr;
-          </span>
-        </header>
-
-        <ol className="protocol-deck-grid">
-          {protocolSteps.map((step) => {
-            const isFlipped = Boolean(flippedCards[step.index]);
-            return (
-              <li key={step.index} className="protocol-card-slot">
-                <button
-                  type="button"
-                  onClick={() => toggleCard(step.index)}
-                  className="protocol-card-btn"
-                  data-flipped={isFlipped ? "true" : "false"}
-                  aria-label={`${step.index} ${step.title} — Click to flip card`}
-                >
-                  <div className="protocol-card-inner">
-                    {/* Card Face */}
-                    <div className="protocol-card-face">
-                      <div className="protocol-card-top">
-                        <span className="font-display protocol-card-num">
-                          {step.index}
-                        </span>
-                        <span className="protocol-card-suit" aria-hidden="true">
-                          &#9830;
-                        </span>
-                      </div>
-                      <h4 className="kk-condensed protocol-card-title">
-                        {step.title}
-                      </h4>
-                      <span className="t-label text-stone protocol-card-cadence">
-                        {step.cadence}
-                      </span>
-                      <span className="protocol-card-dash" aria-hidden="true" />
-                      <p className="protocol-card-summary">{step.summary}</p>
-                      <div className="protocol-card-bottom" aria-hidden="true">
-                        <span className="font-display protocol-bottom-title">
-                          {step.title}
-                        </span>
-                        <span className="font-display protocol-bottom-num">
-                          {step.index}
-                        </span>
-                      </div>
-                    </div>
-
-                    {/* Ornate Retro Card Back */}
-                    <div className="protocol-card-back" aria-hidden="true">
-                      <span className="protocol-back-pattern" />
-                      <span className="protocol-back-frame-outer" />
-                      <span className="protocol-back-frame-inner" />
-                      <span className="protocol-back-medallion">
-                        <span className="font-display">QA</span>
-                      </span>
-                      <span className="font-display protocol-back-corner-tl">
-                        {step.index}
-                      </span>
-                      <span className="font-display protocol-back-corner-br">
-                        {step.index}
-                      </span>
-                    </div>
-                  </div>
-                </button>
-              </li>
-            );
-          })}
-        </ol>
       </div>
     </div>
   );
 }
 
 /* ============================================================
-   Deep Midnight Specialization Panel
+   Minimal Domain Specialization Panel
    ============================================================ */
 
 export function PineFeaturePanel() {
   const [tab, setTab] = useState<"security" | "functional">("security");
-
   const content =
     tab === "security"
       ? {
-          watermark: "SECURITY",
           headline: "Permission boundaries don't break on my watch.",
           subcopy:
-            "Every API endpoint, tenant workspace, and authentication token is stress-tested for BOLA/IDOR, privilege escalation, and rate-limit bypasses before release.",
-          items: [
-            {
-              num: "01",
-              title: "BOLA & IDOR Tampering",
-              desc: "Cross-user & cross-channel resource ID substitution via Burp Suite and Postman."
-            },
-            {
-              num: "02",
-              title: "Auth & OTP Hardening",
-              desc: "Burst rate-limit verification, token expiration, and session replay checks."
-            },
-            {
-              num: "03",
-              title: "Schema & Contract Locks",
-              desc: "80+ public developer endpoints validated against silent schema regressions."
-            }
+            "I test every API endpoint, account boundary, and login token to catch access control flaws (BOLA/IDOR), role bypasses, and rate-limiting gaps before production.",
+          points: [
+            { num: "01", title: "Access Control & IDOR Checks", desc: "Testing what happens when users swap IDs to access private data." },
+            { num: "02", title: "Login & OTP Security", desc: "Checking rate limits, session timeouts, and password reset security." },
+            { num: "03", title: "API Response Validation", desc: "Verifying 80+ endpoints so unexpected changes don't break integrations." }
           ],
-          statLabel: "Critical & High Auth Flaws Caught Pre-Production",
           statBig: "100%",
-          bar1Label: "Object-level authorization (BOLA / IDOR) coverage",
-          bar1Scale: 1,
-          bar2Label: "Multi-tenant RBAC & rate-limit enforcement",
-          bar2Scale: 1
+          statLabel: "Access Flaws Intercepted Pre-Production"
         }
       : {
-          watermark: "PLATFORMS",
           headline: "Built for real users across Web, Android & iOS.",
           subcopy:
-            "From real-time multi-user Kanban boards to agency workspace switching, I test complex stateful workflows where standard happy-path scripts fail.",
-          items: [
-            {
-              num: "01",
-              title: "Multi-Tenant SaaS QA",
-              desc: "End-to-end workspace isolation, role permissions, and real-time Kanban sync."
-            },
-            {
-              num: "02",
-              title: "Web, Android & iOS",
-              desc: "Exploratory, UI, and regression testing across mobile and desktop builds."
-            },
-            {
-              num: "03",
-              title: "Developer-First Bug Logs",
-              desc: "Reproducible steps, expected-vs-actual, and HAR/network request captures."
-            }
+            "From real-time Kanban updates to multi-account workspace switching, I test real-world user flows where simple automated scripts often miss bugs.",
+          points: [
+            { num: "01", title: "Multi-Account SaaS QA", desc: "Testing workspace isolation, team roles, and real-time data sync." },
+            { num: "02", title: "Web, Android & iOS", desc: "Hands-on exploratory, UI, and regression testing on real devices." },
+            { num: "03", title: "Developer-Friendly Bug Logs", desc: "Clear reproduction steps, expected vs. actual outcomes, and network logs." }
           ],
-          statLabel: "Platforms Verified in Weekly Agile Sprints",
           statBig: "3x",
-          bar1Label: "Web, Android & iOS cross-platform matrix",
-          bar1Scale: 1,
-          bar2Label: "First-pass defect reproducibility with network traces",
-          bar2Scale: 0.99
+          statLabel: "Platforms Verified in Weekly Agile Sprints"
         };
 
   return (
-    <div className="kk-wrap pine-section-wrap">
-      <div className="pine-panel">
-        <span aria-hidden="true" className="font-display pine-watermark">
-          {content.watermark}
-        </span>
-
-        <header className="pine-header">
-          <div className="pine-header-left">
-            <span className="t-label pine-eyebrow">
-              <span className="ember-dot" aria-hidden="true" />
-              Domain Specialization
-            </span>
-            <h3 className="t-xl pine-title">
-              Built for <span className="text-ember">API security</span> &amp; SaaS scale.
-            </h3>
+    <div className="kk-wrap pine-minimal-wrap">
+      <div className="pine-minimal-card">
+        <div className="pine-minimal-top">
+          <div className="pine-top-left">
+            <span className="t-label skills-code-pill">DEPTH</span>
+            <span className="pine-top-kicker">DOMAIN SPECIALIZATION</span>
           </div>
-
-          <div role="tablist" aria-label="Pick a testing focus" className="pine-tabs">
-            <span
-              aria-hidden="true"
-              className="pine-tab-pill"
-              data-tab={tab}
-            />
+          <div className="pine-tab-group" role="tablist">
             <button
               type="button"
               role="tab"
               aria-selected={tab === "security"}
               onClick={() => setTab("security")}
-              className={`t-label pine-tab-btn ${tab === "security" ? "is-active" : ""}`}
+              className={`pine-tab-btn ${tab === "security" ? "is-active" : ""}`}
             >
               API &amp; Security
             </button>
@@ -648,64 +476,34 @@ export function PineFeaturePanel() {
               role="tab"
               aria-selected={tab === "functional"}
               onClick={() => setTab("functional")}
-              className={`t-label pine-tab-btn ${tab === "functional" ? "is-active" : ""}`}
+              className={`pine-tab-btn ${tab === "functional" ? "is-active" : ""}`}
             >
               Web &amp; Mobile QA
             </button>
           </div>
-        </header>
+        </div>
 
-        <div className="pine-body-grid" key={tab}>
-          <div className="pine-body-left">
-            <div className="pine-lead-block">
-              <p className="font-display pine-big-statement">{content.headline}</p>
-              <p className="pine-subcopy">{content.subcopy}</p>
-            </div>
+        <div className="pine-minimal-body">
+          <div className="pine-body-info">
+            <h3 className="pine-statement-title">{content.headline}</h3>
+            <p className="pine-statement-sub">{content.subcopy}</p>
 
-            <div className="pine-list-wrap">
-              <span className="t-label pine-list-caption">What I execute</span>
-              <ol className="pine-list">
-                {content.items.map((item) => (
-                  <li key={item.num} className="pine-list-row">
-                    <span className="t-label pine-row-num">{item.num}</span>
-                    <div className="pine-row-text">
-                      <span className="kk-condensed pine-row-title">{item.title}</span>
-                      <span className="pine-row-desc">{item.desc}</span>
-                    </div>
-                    <span className="pine-row-arrow" aria-hidden="true">
-                      &rarr;
-                    </span>
-                  </li>
-                ))}
-              </ol>
+            <div className="pine-points-list">
+              {content.points.map((pt) => (
+                <div key={pt.num} className="pine-point-item">
+                  <span className="t-label pine-point-num">{pt.num}</span>
+                  <div>
+                    <strong className="pine-point-heading">{pt.title}</strong>
+                    <p className="pine-point-desc">{pt.desc}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          <div className="pine-body-right">
-            <div className="pine-stat-card">
-              <span className="t-label text-stone">{content.statLabel}</span>
-              <span className="font-display pine-stat-big">{content.statBig}</span>
-              <div className="pine-bars">
-                <div className="pine-bar-group">
-                  <span className="t-label text-graphite">{content.bar1Label}</span>
-                  <span className="pine-bar-track">
-                    <span
-                      className="pine-bar-fill-accent"
-                      style={{ transform: `scaleX(${content.bar1Scale})` }}
-                    />
-                  </span>
-                </div>
-                <div className="pine-bar-group">
-                  <span className="t-label text-graphite">{content.bar2Label}</span>
-                  <span className="pine-bar-track">
-                    <span
-                      className="pine-bar-fill-accent"
-                      style={{ transform: `scaleX(${content.bar2Scale})` }}
-                    />
-                  </span>
-                </div>
-              </div>
-            </div>
+          <div className="pine-minimal-stat">
+            <span className="font-display pine-stat-number">{content.statBig}</span>
+            <span className="pine-stat-caption">{content.statLabel}</span>
           </div>
         </div>
       </div>
@@ -714,28 +512,22 @@ export function PineFeaturePanel() {
 }
 
 /* ============================================================
-   Interactive Stat Cards Grid (Referenced from KKM #numbers)
+   Minimal Stat Cards Grid
    ============================================================ */
 
 export function StatGrid({ stats }: { stats: StatItem[] }) {
   return (
-    <ul className="stat-grid">
+    <ul className="stat-minimal-grid">
       {stats.map((st) => (
-        <li key={st.index} tabIndex={0} className="stat-card">
-          <span aria-hidden="true" className="stat-card-ink-sweep" />
-          <span aria-hidden="true" className="stat-card-glow" />
+        <li key={st.index} className="stat-minimal-card">
+          <span aria-hidden="true" className="skills-hover-bar" />
           <div className="stat-card-top">
-            <span className="t-label stat-card-idx">{st.index}</span>
-            <span className="t-label stat-card-tag">{st.tag}</span>
+            <span className="t-label stat-idx-pill">{st.index}</span>
+            <span className="t-label stat-tag-pill">{st.tag}</span>
           </div>
-          <div className="stat-card-bottom">
-            <span className="font-display stat-card-val">{st.value}</span>
-            <span className="stat-card-cord" aria-hidden="true">
-              <span className="stat-card-cord-fill" />
-            </span>
-            <span className="stat-card-label">{st.label}</span>
-            <p className="stat-card-detail">{st.detail}</p>
-          </div>
+          <span className="font-display stat-number-big">{st.value}</span>
+          <span className="stat-label-title">{st.label}</span>
+          <p className="stat-detail-text">{st.detail}</p>
         </li>
       ))}
     </ul>

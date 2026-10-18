@@ -17,50 +17,44 @@ export function ExperienceItem({ item, index = 0 }: ExperienceItemProps) {
     hidden: {},
     visible: { transition: { staggerChildren: 0.08, delayChildren: 0.04 } }
   };
-  const fromLeft: Variants = {
-    hidden: { opacity: 0, x: reduce ? 0 : -18 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: EASE } }
-  };
   const rise: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 18 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } }
+    hidden: { opacity: 0, y: reduce ? 0 : 16 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } }
   };
 
   const numStr = String(index + 1).padStart(2, "0");
 
   return (
     <motion.article
-      className="experience-item kk-card"
+      className="experience-minimal-card"
       variants={parent}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
+      viewport={{ once: true, amount: 0.25 }}
     >
-      <motion.div className="experience-meta" variants={fromLeft}>
-        <div className="experience-index-row">
-          <span className="font-display experience-num">{numStr}</span>
-          {item.badge ? <span className="t-label experience-badge">{item.badge}</span> : null}
+      <span aria-hidden="true" className="skills-hover-bar" />
+
+      <motion.div className="experience-minimal-meta" variants={rise}>
+        <div className="experience-meta-top">
+          <span className="skills-code-pill">EXP // {numStr}</span>
+          {item.badge ? <span className="experience-badge-pill">{item.badge}</span> : null}
         </div>
-        <p className="t-label experience-date">
-          <span className="diamond-dot" aria-hidden="true" />
-          {item.period}
-        </p>
-        <p className="experience-company">{item.company}</p>
+        <span className="t-label experience-period-text">{item.period}</span>
+        <h4 className="experience-company-title">{item.company}</h4>
       </motion.div>
 
-      <div className="experience-content">
-        <motion.div className="experience-title-row" variants={rise}>
-          <h3 className="kk-condensed experience-role">{item.role}</h3>
-          <span className="t-label text-stone experience-company-inline">{item.company}</span>
+      <div className="experience-minimal-content">
+        <motion.div className="experience-role-head" variants={rise}>
+          <h3 className="experience-role-name">{item.role}</h3>
         </motion.div>
 
-        <ol className="experience-points">
+        <ol className="experience-minimal-points">
           {item.points.map((point, pIdx) => (
-            <motion.li key={point} className="experience-point-row" variants={rise}>
-              <span className="t-label experience-point-idx">
+            <motion.li key={point} className="experience-point-item" variants={rise}>
+              <span className="experience-point-index">
                 {String(pIdx + 1).padStart(2, "0")}
               </span>
-              <p>{point}</p>
+              <p className="experience-point-text">{point}</p>
             </motion.li>
           ))}
         </ol>
@@ -68,4 +62,3 @@ export function ExperienceItem({ item, index = 0 }: ExperienceItemProps) {
     </motion.article>
   );
 }
-

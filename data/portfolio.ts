@@ -56,62 +56,61 @@ export const portfolio = {
     role: "Quality Analyst | API & Security Testing",
     tags: [
       "Postman API Testing",
-      "API Security & RBAC",
+      "Access Control & Security",
       "Web & Mobile QA",
       "Exploratory Testing"
     ],
-    location: "Vadodara / Ahmedabad, IN → Global",
     status: "Available for QA & Security Engagements"
   },
   tickerRows: [
     [
-      "Postman API Collections",
-      "BOLA / IDOR Auditing",
-      "Burp Suite Traffic Inspection",
-      "Multi-Tenant RBAC Verification",
-      "JWT & Session Security",
-      "JSON Schema Contract Testing",
-      "Rate-Limit Stress Testing"
+      "Postman API Test Suites",
+      "Access Control & IDOR Checks",
+      "Burp Suite Security Testing",
+      "User Roles & Permissions (RBAC)",
+      "Login & Session Security",
+      "API Response & Schema Checks",
+      "Rate Limiting & Abuse Prevention"
     ],
     [
-      "Web · Android · iOS QA",
-      "Negative & Boundary Testing",
-      "Network Request Profiling",
-      "Reproducible Defect Logs",
-      "Release Sign-Off Protocol",
-      "Kanban & Real-Time Sync QA",
-      "Auth & OTP Flow Hardening"
+      "Web · Android · iOS Testing",
+      "Edge Case & Error Handling",
+      "Network Request & Log Analysis",
+      "Clear, Reproducible Bug Reports",
+      "Release Sign-Off & Verification",
+      "Real-Time Collaboration Testing",
+      "Password Reset & OTP Security"
     ]
   ],
   intro:
-    "I help product teams ship software they can trust — uncovering hidden permission leaks, stress-testing APIs before release, and writing defect reports developers actually respect.",
+    "I help product teams ship software they can trust — catching unauthorized access leaks, verifying APIs before launch, and writing clear bug reports that developers can easily fix.",
   benchmark: {
     eyebrow: "Interactive QA Benchmark Audit",
-    title: "Ad-hoc release checks vs. The QA Protocol",
+    title: "Ad-hoc release checks vs. Structured QA Protocol",
     metrics: [
       {
-        label: "API Endpoint & Schema Contract Coverage",
+        label: "API Coverage & Response Verification",
         ours: "80+ Endpoints",
         theirs: "Happy-path only",
         ourScale: 0.96,
         theirScale: 0.28
       },
       {
-        label: "Object-Level Authorization (BOLA / IDOR) Verification",
-        ours: "100% Tamper-Tested",
-        theirs: "UI-role check",
+        label: "Access Control & Data Privacy Checks (IDOR / BOLA)",
+        ours: "Tested on every endpoint",
+        theirs: "Checked only on UI",
         ourScale: 1,
         theirScale: 0.22
       },
       {
-        label: "Defect Reproducibility (Network Logs + Exact Steps)",
-        ours: "99.4% First-Pass",
-        theirs: "~60% Back-and-forth",
+        label: "Defect Clarity (Exact Steps + Network Logs)",
+        ours: "Reproducible on first pass",
+        theirs: "Frequent back-and-forth",
         ourScale: 0.99,
         theirScale: 0.55
       },
       {
-        label: "Cross-Platform Release Matrix Owned",
+        label: "Cross-Platform Testing Coverage",
         ours: "Web · iOS · Android",
         theirs: "Single browser",
         ourScale: 1,
@@ -120,39 +119,39 @@ export const portfolio = {
     ],
     pillars: ["API Security", "Functional QA", "Release Sign-Off"],
     proofs: [
-      { label: "Defect report clarity", value: "cURL + HAR" },
-      { label: "Auth & RBAC matrices", value: "Multi-Tenant" },
-      { label: "Zero silent 500s shipped", value: "Pre-Release" }
+      { label: "Bug report quality", value: "cURL + Network Logs" },
+      { label: "User permissions", value: "Multi-Role Tested" },
+      { label: "Unhandled server errors", value: "Caught Pre-Release" }
     ]
   },
   protocolSteps: [
     {
       index: "01",
       title: "Recon",
-      cadence: "Phase 01 · Architecture",
+      cadence: "Phase 01 · Planning",
       summary:
-        "Map every endpoint, tenant boundary, role matrix, and token lifecycle before writing a single test."
+        "Map out all endpoints, user roles, account boundaries, and authentication flows before writing test cases."
     },
     {
       index: "02",
       title: "Intercept",
-      cadence: "Phase 02 · Burp & Postman",
+      cadence: "Phase 02 · Hands-on Testing",
       summary:
-        "Tamper with IDs, mutate payloads, replay expired JWTs, and stress-test rate limits under burst conditions."
+        "Test edge cases — swap user IDs to check access control, send invalid data, test expired sessions, and check rate limits under heavy traffic."
     },
     {
       index: "03",
       title: "Automate",
-      cadence: "Phase 03 · Contract Suite",
+      cadence: "Phase 03 · Automated Suites",
       summary:
-        "Lock in modular Postman suites with dynamic token handshakes, pre-request scripts, and JSON schema assertions."
+        "Build reusable Postman test suites that handle login tokens automatically and verify status codes, data types, and response formats."
     },
     {
       index: "04",
       title: "Verify",
       cadence: "Phase 04 · Sign-Off",
       summary:
-        "Deliver developer-ready defect logs with network traces, then re-test patches until every regression passes."
+        "Deliver clear, reproducible bug reports with exact steps and network logs, then retest fixes to guarantee zero regressions."
     }
   ] satisfies ProtocolStep[],
   experience: [
@@ -162,9 +161,9 @@ export const portfolio = {
       company: "Social Media Management SaaS",
       badge: "Current Role · SaaS",
       points: [
-        "Designed and built comprehensive Postman API test suites for the public developer API, validating status assertions, response schemas, and authentication flows.",
-        "Spearheaded end-to-end testing for complex product features including real-time Kanban boards and multi-tenant Agency workspace management.",
-        "Verified Role-Based Access Control (RBAC) and data isolation boundaries across shared client workspaces."
+        "Built automated Postman test suites for public developer APIs, verifying status codes, response formats, and authentication flows.",
+        "Led end-to-end testing for complex product features including real-time Kanban boards and multi-account workspace management.",
+        "Tested user permissions and role boundaries (RBAC) to ensure accounts cannot access or modify another team's data."
       ]
     },
     {
@@ -173,9 +172,9 @@ export const portfolio = {
       company: "Zluck Solutions",
       badge: "Full-Stack QA · 1.5 Yrs",
       points: [
-        "Led end-to-end functional, UI, and exploratory QA across Web, Android, and iOS platforms.",
-        "Performed deep API security reviews using Postman, DevTools, and Burp Suite to identify authorization flaws and rate-limiting gaps.",
-        "Documented high-severity vulnerabilities with reproducible steps, expected-vs-actual results, and network request logs."
+        "Led functional, UI, and exploratory QA across Web, Android, and iOS platforms.",
+        "Conducted API security reviews using Postman and Burp Suite to identify permission bypasses, broken access control, and rate-limiting gaps.",
+        "Documented high-severity bugs with reproducible steps, expected vs. actual outcomes, and network request logs."
       ]
     },
     {
@@ -185,7 +184,7 @@ export const portfolio = {
       badge: "Foundation · Agile QA",
       points: [
         "Tested core authentication flows (signup, login, password recovery, session tokens) across mobile and web builds.",
-        "Executed regression test runs and validated bug fixes in weekly agile sprints."
+        "Executed regression test runs and verified bug fixes in weekly agile sprints."
       ]
     }
   ] satisfies Experience[],
@@ -194,20 +193,20 @@ export const portfolio = {
       category: "API Security",
       title: "Broken Access Control (BOLA / IDOR) Testing",
       metric: "2 Critical",
-      metricLabel: "IDOR flaws caught & patched before exploit",
+      metricLabel: "Access control flaws found and fixed before launch",
       severity: "HIGH / CRITICAL",
       sections: [
         {
           heading: "Context",
-          body: "A high-traffic social media platform supporting user accounts, channels, and direct messaging. The objective was verifying whether backend APIs enforced strict object-level authorization or simply trusted user input."
+          body: "A high-traffic social media platform supporting user accounts, channels, and direct messaging. The objective was verifying whether backend APIs enforce strict ownership checks or simply trust user IDs sent from the client."
         },
         {
           heading: "Approach",
-          body: "Intercepted API requests using Burp Suite and Postman, tampering with resource IDs (substituting another user's ID and unauthorized channel IDs) across deletion and update endpoints."
+          body: "Intercepted API requests using Burp Suite and Postman, attempting to delete or update resources by substituting another user's account ID and unauthorized channel IDs."
         },
         {
           heading: "Outcome",
-          body: "Identified two critical Broken Object Level Authorization (IDOR) vulnerabilities where restricted resources could be deleted without required permissions. Documented severity with step-by-step repros; retested and verified patches."
+          body: "Identified two critical Broken Object Level Authorization (IDOR) vulnerabilities where restricted resources could be deleted without required permissions. Documented clear reproduction steps for developers; retested and verified the patches."
         }
       ],
       tools: ["Postman", "Burp Suite", "Browser DevTools"]
@@ -215,21 +214,21 @@ export const portfolio = {
     {
       category: "Auth & Security",
       title: "Authentication & Rate-Limiting Review",
-      metric: "0 Takeovers",
-      metricLabel: "OTP brute-force vector neutralized on retest",
+      metric: "Protected",
+      metricLabel: "OTP brute-force loophole closed on retest",
       severity: "HIGH SEVERITY",
       sections: [
         {
           heading: "Context",
-          body: "Core authentication and recovery APIs on a social web/mobile application. The password reset flow relied on SMS/email OTP verification and required rigorous security assessment beyond basic functional checks."
+          body: "Core authentication and password reset APIs on a social web/mobile application. The recovery flow relied on SMS/email OTP verification and required rigorous security assessment beyond basic functional checks."
         },
         {
           heading: "Approach",
-          body: "Tested positive and negative test cases for token handling, expiration, and payload tampering in Postman. Repeated OTP validation requests under rapid burst conditions to evaluate rate limiting and account lockout mechanisms."
+          body: "Tested positive and negative test cases for token handling, expiration, and invalid payloads in Postman. Repeated OTP verification requests under rapid burst conditions to evaluate rate limiting and account lockout protection."
         },
         {
           heading: "Outcome",
-          body: "Discovered missing rate-limiting on the OTP endpoint, which exposed users to brute-force account takeover. Reported as a high-severity flaw; verified server-side rate limits and lockout policies upon retest."
+          body: "Discovered missing rate-limiting on the OTP endpoint, which exposed accounts to automated brute-force takeover. Reported as a high-severity flaw; verified server-side rate limits and lockout policies upon retest."
         }
       ],
       tools: ["Postman", "Burp Suite", "DevTools"]
@@ -238,20 +237,20 @@ export const portfolio = {
       category: "API Validation",
       title: "Public Developer API Test Suite",
       metric: "80+ APIs",
-      metricLabel: "Endpoints validated with automated schema checks",
+      metricLabel: "Endpoints validated with automated test suites",
       severity: "CONTRACT SUITE",
       sections: [
         {
           heading: "Context",
-          body: "A public-facing REST API used by third-party developers and agency integrations. Required end-to-end contract validation to ensure consistent responses, reliable error handling, and complete data integrity."
+          body: "A public-facing REST API used by third-party developers and agency integrations. Required end-to-end test suites to guarantee consistent responses, clear error handling, and complete data accuracy."
         },
         {
           heading: "Approach",
-          body: "Built modular Postman collections leveraging environment variables, dynamic auth token handshakes, pre-request scripts, and automated status/schema validation across 80+ endpoints."
+          body: "Built modular Postman test collections with automatic token management, environment variables, pre-request scripts, and automated status and schema validation across 80+ endpoints."
         },
         {
           heading: "Outcome",
-          body: "Caught silent schema omissions, unhandled 500 errors on type mutations, and mid-flight token expiration bugs before public developer release."
+          body: "Caught missing data fields, unhandled 500 errors on invalid inputs, and mid-flight token expiration bugs before the public developer release."
         }
       ],
       tools: ["Postman", "JSON Schema", "REST API", "DevTools"],
@@ -263,17 +262,17 @@ export const portfolio = {
       index: "01",
       tag: "Coverage",
       value: "80+",
-      label: "REST API endpoints under automated contract validation",
+      label: "REST API endpoints covered by automated test suites",
       detail:
-        "Modular Postman suites with dynamic token handshakes, status assertions, and JSON schema checks."
+        "Automated Postman suites verifying status codes, response formats, and error handling."
     },
     {
       index: "02",
       tag: "Security",
       value: "BOLA",
-      label: "Critical IDOR & auth bypass flaws intercepted pre-release",
+      label: "Critical IDOR & access control flaws caught before release",
       detail:
-        "Deep object-level authorization testing across multi-tenant agency workspaces and user channels."
+        "Thorough permission testing across multi-user workspaces, private channels, and account data."
     },
     {
       index: "03",
@@ -281,15 +280,15 @@ export const portfolio = {
       value: "3x",
       label: "Web, Android, and iOS builds verified end-to-end",
       detail:
-        "Cross-platform exploratory, functional, and regression sign-off in fast weekly agile sprints."
+        "Hands-on exploratory, UI, and regression testing across desktop and mobile devices."
     },
     {
       index: "04",
       tag: "Credentials",
       value: "04",
-      label: "Security & cloud certifications backing hands-on QA",
+      label: "Security & cloud certifications backing practical QA",
       detail:
-        "Google Cloud Cybersecurity, TryHackMe OPSEC & Network Services, and Microsoft Cybersecurity Essentials."
+        "Google Cloud Cybersecurity, TryHackMe Network Security, and Microsoft Cybersecurity Essentials."
     }
   ] satisfies StatItem[],
   skills: [
@@ -298,15 +297,15 @@ export const portfolio = {
       code: "SEC-01",
       items: [
         "Postman API Testing & Collection Design",
-        "Broken Object Level Authorization (BOLA / IDOR)",
-        "Authentication, Token Expiration & JWT Validation",
+        "Access Control & IDOR Testing (BOLA)",
+        "Authentication, Token Expiration & Login Security",
         "Burp Suite Traffic Inspection & Negative Testing"
       ],
       tags: [
-        ["Collections", "Env Vars", "Pre-Scripts"],
-        ["ID Tampering", "RBAC", "Access Control"],
-        ["JWT", "OTP Burst", "Session Lifecycle"],
-        ["Proxy", "Payloads", "Rate Limits"]
+        ["Collections", "Env Vars", "Assertions"],
+        ["Access Control", "User Roles", "Data Privacy"],
+        ["Login Flows", "OTP Limits", "Session Tokens"],
+        ["Proxy", "Invalid Payloads", "Rate Limits"]
       ]
     },
     {
@@ -314,15 +313,15 @@ export const portfolio = {
       code: "QA-02",
       items: [
         "Web, Android, and iOS Exploratory Testing",
-        "Multi-Tenant & RBAC Permission Boundaries",
+        "Multi-User Roles & Workspace Permissions",
         "Regression Testing & Release Sign-Off",
-        "Complex State & Workflow Validation (Kanban, Multi-User Sync)"
+        "Complex Workflows & State Sync (Kanban, Real-Time Updates)"
       ],
       tags: [
-        ["Cross-Device", "UI Edge Cases", "Mobile"],
-        ["Data Isolation", "Agency Roles", "Workspaces"],
-        ["Sprint Cycles", "Smoke Suites", "Zero Blocker"],
-        ["Real-Time", "Kanban", "State Sync"]
+        ["Cross-Device", "UI Edge Cases", "Mobile & Web"],
+        ["Account Isolation", "User Roles", "Workspaces"],
+        ["Sprint Cycles", "Smoke Tests", "Release Ready"],
+        ["Real-Time", "Kanban", "Live Sync"]
       ]
     },
     {
@@ -331,14 +330,14 @@ export const portfolio = {
       items: [
         "Browser DevTools Debugging & Network Profiling",
         "Bug Reporting & Reproducible Defect Logs",
-        "Jira / Agile Sprint Management",
-        "Requirement & Acceptance Criteria Analysis"
+        "Jira & Agile Sprint Collaboration",
+        "Reviewing Requirements & Defining Test Scenarios"
       ],
       tags: [
-        ["HAR Logs", "Console", "Latency"],
+        ["Network Logs", "Console Errors", "Response Times"],
         ["Steps to Repro", "Expected vs Actual", "cURL"],
-        ["Bug Triage", "Severity", "Retesting"],
-        ["Edge Cases", "Spec Review", "Test Plans"]
+        ["Bug Triage", "Severity", "Retesting Fixes"],
+        ["Edge Cases", "Acceptance Criteria", "Test Plans"]
       ]
     }
   ] satisfies SkillGroup[],
@@ -371,7 +370,7 @@ export const portfolio = {
     email: "tiwariabhinandan99@gmail.com",
     linkedinUrl: "https://www.linkedin.com/in/abhinandantiwari",
     note:
-      "Open to Quality Analyst roles, security & API testing engagements, or discussions on bulletproofing your release pipelines.",
+      "Open to Quality Analyst roles, API testing & security engagements, or helping your team ship bug-free releases.",
     links: [
       {
         label: "Email",

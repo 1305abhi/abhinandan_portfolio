@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useSpring } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 
 const links = [
   { href: "#skills", label: "Capabilities", id: "skills", code: "01" },
@@ -22,82 +22,15 @@ export function SiteNav() {
   const [active, setActive] = useState<string>("");
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [contrastTone, setContrastTone] = useState<"obsidian" | "archive">("obsidian");
 
-  // Interactive Tension Cord ("Slack") state inspired by kreativeknotmedia.com
-  const [cordY, setCordY] = useState(15);
-  const [cordX, setCordX] = useState(75);
-  const [slackVal, setSlackVal] = useState(8);
-  const velocityRef = useRef(0);
-  const targetYRef = useRef(15);
-  const currentYRef = useRef(15);
-  const rafRef = useRef<number | null>(null);
-
+  // Sync theme tone with document root so all sections inherit theme
   useEffect(() => {
-    const animateCord = () => {
-      const stiffness = 0.14;
-      const damping = 0.82;
-      const force = (targetYRef.current - currentYRef.current) * stiffness;
-      velocityRef.current = (velocityRef.current + force) * damping;
-      currentYRef.current += velocityRef.current;
+    document.documentElement.setAttribute("data-tone", contrastTone);
+  }, [contrastTone]);
 
-      setCordY(currentYRef.current);
-      const deviation = Math.min(
-        99,
-        Math.max(4, Math.round(Math.abs(currentYRef.current - 15) * 3.8 + 8))
-      );
-      setSlackVal(deviation);
-
-      if (
-        Math.abs(velocityRef.current) > 0.02 ||
-        Math.abs(targetYRef.current - currentYRef.current) > 0.05
-      ) {
-        rafRef.current = requestAnimationFrame(animateCord);
-      } else {
-        currentYRef.current = targetYRef.current;
-        setCordY(targetYRef.current);
-        rafRef.current = null;
-      }
-    };
-
-    const onMouseMove = (e: MouseEvent) => {
-      const normY = (e.clientY / window.innerHeight - 0.5) * 24;
-      const normX = 35 + (e.clientX / window.innerWidth) * 80;
-      setCordX(normX);
-      targetYRef.current = 15 + normY;
-      if (!rafRef.current) {
-        rafRef.current = requestAnimationFrame(animateCord);
-      }
-    };
-
-    window.addEventListener("mousemove", onMouseMove, { passive: true });
-    return () => {
-      window.removeEventListener("mousemove", onMouseMove);
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
-  }, []);
-
-  const pluckCord = () => {
-    velocityRef.current = 14;
-    targetYRef.current = 15;
-    const step = () => {
-      const force = (15 - currentYRef.current) * 0.18;
-      velocityRef.current = (velocityRef.current + force) * 0.84;
-      currentYRef.current += velocityRef.current;
-      setCordY(currentYRef.current);
-      setSlackVal(
-        Math.min(99, Math.max(8, Math.round(Math.abs(currentYRef.current - 15) * 4.5 + 8)))
-      );
-      if (Math.abs(velocityRef.current) > 0.04 || Math.abs(15 - currentYRef.current) > 0.05) {
-        rafRef.current = requestAnimationFrame(step);
-      } else {
-        currentYRef.current = 15;
-        setCordY(15);
-        setSlackVal(8);
-        rafRef.current = null;
-      }
-    };
-    if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    rafRef.current = requestAnimationFrame(step);
+  const toggleTone = () => {
+    setContrastTone((prev) => (prev === "obsidian" ? "archive" : "obsidian"));
   };
 
   useEffect(() => {
@@ -159,42 +92,16 @@ export function SiteNav() {
           </span>
         </a>
 
+        {/* Global Matte Theme Switcher Moved from Hero to Header */}
         <button
           type="button"
-          className="cord-widget"
-          onClick={pluckCord}
-          title="Move your cursor or click to pluck the QA signal cord"
-          aria-label="Interactive signal cord"
+          className="site-tone-toggle"
+          onClick={toggleTone}
+          aria-label="Toggle site contrast theme"
         >
-          <span className="t-label text-stone">Signal</span>
-          <svg
-            aria-hidden="true"
-            width="140"
-            height="30"
-            viewBox="0 0 150 30"
-            className="cord-svg"
-          >
-            <line
-              x1="0"
-              y1="15"
-              x2="150"
-              y2="15"
-              stroke="var(--line)"
-              strokeWidth="1"
-              strokeDasharray="3 3"
-            />
-            <path
-              d={`M 0 15 Q ${cordX.toFixed(1)} ${cordY.toFixed(1)} 150 15`}
-              fill="none"
-              stroke="var(--accent)"
-              strokeWidth="1.8"
-              strokeLinecap="round"
-            />
-            <circle cx="0" cy="15" r="2.4" fill="var(--text)" />
-            <circle cx="150" cy="15" r="2.4" fill="var(--text)" />
-          </svg>
-          <span className="t-label cord-readout" aria-hidden="true">
-            {String(slackVal).padStart(3, "0")}
+          <span className="tone-indicator-dot" aria-hidden="true" />
+          <span className="t-label tone-toggle-text">
+            THEME: {contrastTone === "obsidian" ? "DARK SLATE" : "WARM STONE"} &middot; SWITCH
           </span>
         </button>
 

@@ -67,34 +67,5 @@ type SectionRibbonProps = {
 };
 
 export function SectionRibbon({ index, label, flip = false }: SectionRibbonProps) {
-  const reduce = useReducedMotion();
-
-  return (
-    <div aria-hidden="true" className="section-ribbon-wrap">
-      <div className="section-ribbon-svg-box">
-        <svg
-          className={`section-ribbon-svg ${flip ? "ribbon-flip" : ""}`}
-          viewBox="0 0 1200 220"
-          preserveAspectRatio="none"
-        >
-          <motion.path
-            d="M 1260 190 C 980 210, 850 30, 600 55 S 210 200, -60 45"
-            fill="none"
-            stroke="var(--accent)"
-            strokeWidth="9"
-            strokeLinecap="round"
-            initial={{ pathLength: reduce ? 1 : 0 }}
-            whileInView={{ pathLength: 1 }}
-            viewport={{ once: true, amount: 0.35 }}
-            transition={{ duration: 1.25, ease: EASE }}
-          />
-        </svg>
-      </div>
-      <div className="seam-node">
-        <span className="t-index">{index}</span>
-        <span className="t-label text-stone">{label}</span>
-      </div>
-    </div>
-  );
+  return null;
 }
-

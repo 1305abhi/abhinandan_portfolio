@@ -14,20 +14,21 @@ type ContactRowProps = {
 export function ContactRow({ link, index = 0 }: ContactRowProps) {
   const reduce = useReducedMotion();
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 18 },
+    hidden: { opacity: 0, y: reduce ? 0 : 16 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } }
   };
 
   return (
     <motion.div className="contact-row" variants={variants}>
-      <span className="t-label contact-row-label">
-        <span className="text-stone">0{index + 1}</span> &middot; {link.label}
+      <span aria-hidden="true" className="skills-hover-bar" />
+      <span className="contact-row-label">
+        <span className="contact-row-idx">0{index + 1}</span> &middot; {link.label}
       </span>
       <a
         href={link.href}
         target={link.href.startsWith("http") ? "_blank" : undefined}
         rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
-        className="kk-condensed contact-row-link"
+        className="contact-row-link"
       >
         {link.value} <span className="kk-arrow" aria-hidden="true">&rarr;</span>
       </a>
@@ -37,12 +38,12 @@ export function ContactRow({ link, index = 0 }: ContactRowProps) {
 
 const QA_SCOPES = [
   "Full-Time Quality Analyst Role",
-  "Postman API Contract Suite",
-  "BOLA / IDOR Security Audit",
-  "Web & Mobile Exploratory QA",
-  "RBAC & Multi-Tenant Testing",
-  "Auth & Rate-Limit Review",
-  "Release Pipeline Sign-Off"
+  "Postman API Test Suite",
+  "API Security & Access Control (IDOR)",
+  "Web & Mobile QA Testing",
+  "User Roles & Permissions Testing",
+  "Login & Rate-Limit Testing",
+  "Release Sign-Off & Verification"
 ];
 
 type ContactBuilderProps = {
@@ -53,7 +54,7 @@ type ContactBuilderProps = {
 export function ContactBuilder({ email, linkedinUrl }: ContactBuilderProps) {
   const [selected, setSelected] = useState<string[]>([
     "Full-Time Quality Analyst Role",
-    "BOLA / IDOR Security Audit"
+    "API Security & Access Control (IDOR)"
   ]);
 
   const toggleScope = (scope: string) => {
@@ -73,24 +74,17 @@ export function ContactBuilder({ email, linkedinUrl }: ContactBuilderProps) {
 
   return (
     <div className="contact-builder-card">
+      <span aria-hidden="true" className="skills-hover-bar" />
       <div className="contact-builder-top">
-        <span className="t-label text-white-60">Interactive Scope Selector</span>
-        <span className="contact-builder-dots" aria-hidden="true">
-          <span className="dot-active" />
-          <span className={selected.length > 1 ? "dot-active" : ""} />
-          <span className={selected.length > 2 ? "dot-active" : ""} />
-        </span>
+        <span className="skills-code-pill">SCOPE BUILDER</span>
+        <span className="t-label text-muted">Select 1 or more priorities</span>
       </div>
 
       <div className="contact-builder-body">
-        <div>
-          <h3 className="kk-condensed contact-builder-title">
-            What can I help verify or test?
-          </h3>
-          <p className="contact-builder-sub">
-            Pick as many focus areas as you like to pre-configure your outreach.
-          </p>
-        </div>
+        <h3 className="contact-builder-title">What can I help verify or test?</h3>
+        <p className="contact-builder-sub">
+          Click any focus areas below to pre-configure a direct outreach brief.
+        </p>
 
         <div className="contact-pills-wrap" role="group" aria-label="Select QA scopes">
           {QA_SCOPES.map((scope) => {
@@ -104,7 +98,7 @@ export function ContactBuilder({ email, linkedinUrl }: ContactBuilderProps) {
                 className={`contact-scope-pill ${isActive ? "is-selected" : ""}`}
               >
                 <span className="scope-pill-check" aria-hidden="true">
-                  {isActive ? "✓" : ""}
+                  {isActive ? "✓" : "+"}
                 </span>
                 {scope}
               </button>
@@ -127,11 +121,11 @@ export function ContactBuilder({ email, linkedinUrl }: ContactBuilderProps) {
           href={linkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="kk-btn kk-btn--line-light"
+          className="kk-btn kk-btn--secondary"
         >
-          Connect on LinkedIn{" "}
+          LinkedIn / abhinandantiwari{" "}
           <span className="kk-arrow" aria-hidden="true">
-            &nearr;
+            ↗
           </span>
         </a>
       </div>
@@ -145,96 +139,47 @@ type RetroFooterProps = {
 };
 
 export function RetroFooter({ email, linkedinUrl }: RetroFooterProps) {
-  const [cordOffset, setCordOffset] = useState(0);
-
   return (
-    <footer
-      className="retro-footer"
-      onPointerMove={(e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
-        const relY = ((e.clientY - rect.top) / rect.height - 0.5) * 90;
-        setCordOffset(relY);
-      }}
-      onPointerLeave={() => setCordOffset(0)}
-    >
-      {/* Interactive Background Thread Strands */}
-      <svg
-        aria-hidden="true"
-        className="footer-threads-svg"
-        viewBox="0 0 1200 500"
-        preserveAspectRatio="none"
-      >
-        <path
-          d={`M -50 180 Q 600 ${180 + cordOffset} 1250 180`}
-          fill="none"
-          stroke="var(--secondary)"
-          strokeOpacity="0.45"
-          strokeWidth="1.5"
-        />
-        <path
-          d={`M -50 250 Q 600 ${250 - cordOffset * 1.15} 1250 250`}
-          fill="none"
-          stroke="var(--accent)"
-          strokeWidth="2.5"
-        />
-        <path
-          d={`M -50 320 Q 600 ${320 + cordOffset * 0.8} 1250 320`}
-          fill="none"
-          stroke="rgba(255, 255, 255, 0.1)"
-          strokeWidth="1.2"
-        />
-      </svg>
-
-      <div className="kk-wrap retro-footer-hero">
-        <span className="t-label text-white-60">
-          Move through the threads &middot; Zero permission leaks shipped
-        </span>
-        <p className="kk-condensed retro-footer-statement">
-          Let&apos;s build something that{" "}
-          <span className="text-vermillion">holds up.</span>
-        </p>
-        <div className="retro-footer-ctas">
-          <a href={`mailto:${email}`} className="kk-btn kk-btn--white">
-            Email Abhinandan <span className="kk-arrow" aria-hidden="true">&rarr;</span>
-          </a>
-          <a
-            href={linkedinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="kk-btn kk-btn--line-light"
-          >
-            LinkedIn / abhinandantiwari{" "}
-            <span className="kk-arrow" aria-hidden="true">&nearr;</span>
-          </a>
+    <footer className="retro-footer">
+      <div className="kk-wrap retro-footer-inner">
+        <div className="retro-footer-top">
+          <div>
+            <span className="t-label skills-eyebrow-line">
+              <span className="skills-eyebrow-dot" aria-hidden="true" />
+              <span>QA &middot; API SECURITY &middot; EXPLORATORY</span>
+            </span>
+            <p className="retro-footer-statement">
+              Let&apos;s build software that <span className="text-vermillion">holds up.</span>
+            </p>
+          </div>
+          <div className="retro-footer-ctas">
+            <a href={`mailto:${email}`} className="kk-btn kk-btn--solid">
+              Email Abhinandan <span className="kk-arrow" aria-hidden="true">&rarr;</span>
+            </a>
+            <a
+              href={linkedinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="kk-btn kk-btn--secondary"
+            >
+              LinkedIn <span className="kk-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
-      </div>
 
-      <div className="kk-wrap retro-footer-bottom">
-        <span className="retro-footer-brand">
-          <span className="diamond-dot" aria-hidden="true" />
-          <span className="t-label text-white-60">
+        <div className="retro-footer-bottom">
+          <span className="t-label retro-footer-brand">
             &copy; 2026 Abhinandan Tiwari &middot; Quality Analyst
           </span>
-        </span>
-        <div className="retro-footer-links">
-          <a href="#skills" className="kk-link t-label text-white-60">
-            Capabilities
-          </a>
-          <a href="#protocol" className="kk-link t-label text-white-60">
-            QA Protocol
-          </a>
-          <a href="#experience" className="kk-link t-label text-white-60">
-            Experience
-          </a>
-          <a href="#case-studies" className="kk-link t-label text-white-60">
-            Case Studies
-          </a>
-          <a href={`mailto:${email}`} className="kk-link t-label text-white-60">
-            {email}
-          </a>
+          <div className="retro-footer-links">
+            <a href="#skills" className="t-label retro-link">Capabilities</a>
+            <a href="#protocol" className="t-label retro-link">QA Protocol</a>
+            <a href="#experience" className="t-label retro-link">Experience</a>
+            <a href="#case-studies" className="t-label retro-link">Case Studies</a>
+            <a href={`mailto:${email}`} className="t-label retro-link">{email}</a>
+          </div>
         </div>
       </div>
     </footer>
   );
 }
-
