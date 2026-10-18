@@ -1,11 +1,18 @@
 import { CaseStudyCard } from "@/components/CaseStudyCard";
-import { ContactRow } from "@/components/ContactRow";
+import { ContactBuilder, ContactRow, RetroFooter } from "@/components/ContactRow";
 import { ExperienceItem } from "@/components/ExperienceItem";
 import { Hero } from "@/components/Hero";
-import { Reveal, Stagger, StaggerItem } from "@/components/motion";
+import {
+  BenchmarkAndDeck,
+  PineFeaturePanel,
+  Reveal,
+  Stagger,
+  StaggerItem,
+  StatGrid
+} from "@/components/motion";
 import { SectionHeader } from "@/components/SectionHeader";
 import { SiteNav } from "@/components/SiteNav";
-import { SkillGroup } from "@/components/SkillGroup";
+import { CapabilitiesSection } from "@/components/SkillGroup";
 import { portfolio } from "@/data/portfolio";
 
 export default function Home() {
@@ -13,113 +20,236 @@ export default function Home() {
     <>
       <SiteNav />
 
-      <main className="site-shell">
+      <main className="site-shell" id="main">
         <Hero
           kicker={portfolio.hero.kicker}
           nameLines={portfolio.hero.nameLines}
           role={portfolio.hero.role}
           tags={portfolio.hero.tags}
+          status={portfolio.hero.status}
+          tickerRows={portfolio.tickerRows}
         />
 
-        <section className="intro" aria-label="Introduction">
-          <Reveal>
-            <h1>{portfolio.intro}</h1>
-          </Reveal>
+        {/* 01 // CAPABILITIES & SKILLS (Minimal Architectural Ledger) */}
+        <CapabilitiesSection skills={portfolio.skills} />
+
+        {/* 02 // QA EXECUTION WORKBENCH & 4-STEP PROTOCOL DECK */}
+        <section className="section-block-flush" id="protocol">
+          <BenchmarkAndDeck
+            intro={portfolio.intro}
+            protocolSteps={portfolio.protocolSteps}
+          />
         </section>
 
-        <section className="section-block" id="experience">
-          <SectionHeader number="01" title="Experience" />
-          <div className="timeline-list">
-            {portfolio.experience.map((item) => (
-              <ExperienceItem key={`${item.company}-${item.role}-${item.period}`} item={item} />
-            ))}
-          </div>
-        </section>
+        {/* 03 // DOMAIN SPECIALIZATION (PINE) & EXPERIENCE */}
+        <section className="section-block-flush" id="experience">
+          <PineFeaturePanel />
 
-        <section className="section-block" id="case-studies">
-          <SectionHeader number="02" title="Case Studies" />
-          <div className="case-list">
-            {portfolio.caseStudies.map((item, index) => (
-              <CaseStudyCard key={item.title} item={item} index={index + 1} />
-            ))}
-          </div>
-        </section>
-
-        <section className="section-block" id="skills">
-          <SectionHeader number="03" title="Skills" />
-          <div className="skill-grid">
-            {portfolio.skills.map((group) => (
-              <SkillGroup key={group.title} group={group} />
-            ))}
-          </div>
-        </section>
-
-        <section className="split-section">
-          <div>
-            <Reveal>
-              <p className="eyebrow">Certifications</p>
-            </Reveal>
-            <Stagger className="line-list">
-              {portfolio.certifications.map((item) => (
-                <StaggerItem className="line-item" key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.source}</p>
-                </StaggerItem>
+          <div className="kk-wrap experience-section-inner">
+            <span aria-hidden="true" className="gutter-thread gutter-thread-left" />
+            <SectionHeader
+              number="03"
+              eyebrow="Career Log"
+              title="Work"
+              accentTitle="Experience."
+              note="SaaS, agency, and multi-platform release verification."
+            />
+            <div className="timeline-list">
+              {portfolio.experience.map((item, idx) => (
+                <ExperienceItem
+                  key={`${item.company}-${item.role}-${item.period}`}
+                  item={item}
+                  index={idx}
+                />
               ))}
-            </Stagger>
+            </div>
           </div>
+        </section>
 
-          <div>
-            <Reveal>
-              <p className="eyebrow">Education</p>
-            </Reveal>
-            <Stagger className="line-list">
-              {portfolio.education.map((item) => (
-                <StaggerItem
-                  className="line-item line-item-with-date"
-                  key={`${item.title}-${item.year}`}
-                >
-                  <div>
-                    <h3>{item.title}</h3>
-                    <p>{item.detail}</p>
-                  </div>
-                  <span>{item.year}</span>
-                </StaggerItem>
+        {/* 04 // CASE STUDIES & RESULTS IN NUMBERS */}
+        <section className="kk-wrap section-block" id="case-studies">
+          <span aria-hidden="true" className="gutter-thread gutter-thread-right" />
+          <SectionHeader
+            number="04"
+            eyebrow="Evidence Locker"
+            title="Case Studies"
+            accentTitle="&amp; Audits."
+            note="Real vulnerabilities intercepted, documented &amp; verified."
+          />
+
+          <div className="case-cord-track">
+            <span aria-hidden="true" className="case-cord-line" />
+            
+            {/* Dossier Deck Telemetry Strip */}
+            <div className="case-deck-info">
+              <span className="pulse-dot-secondary" aria-hidden="true" />
+              <span className="t-label case-deck-info-text">
+                {portfolio.caseStudies.length} AUDIT DOSSIERS &middot; SCROLL TO EXPLORE STACK
+              </span>
+            </div>
+
+            <div className="case-list">
+              {portfolio.caseStudies.map((item, index) => (
+                <CaseStudyCard
+                  key={item.title}
+                  item={item}
+                  index={index + 1}
+                  total={portfolio.caseStudies.length}
+                />
               ))}
-            </Stagger>
+            </div>
+          </div>
+
+          {/* Results in Numbers (Referenced from KKM #numbers) */}
+          <div className="numbers-subblock">
+            <header className="numbers-header">
+              <div>
+                <span className="t-label text-vermillion-deep section-eyebrow">
+                  <span className="diamond-dot" aria-hidden="true" />
+                  Verification Telemetry
+                </span>
+                <h3 className="t-xl">
+                  The results, <span className="text-vermillion">in numbers.</span>
+                </h3>
+              </div>
+              <p className="t-label text-stone">
+                Hover a card to inspect the scope &rarr;
+              </p>
+            </header>
+            <StatGrid stats={portfolio.stats} />
+          </div>
+
+          {/* Certifications & Education Split Ledger */}
+          <div className="split-section">
+            <div className="ledger-column">
+              <Reveal>
+                <div className="ledger-head">
+                  <span className="t-label text-vermillion-deep section-eyebrow">
+                    <span className="diamond-dot" aria-hidden="true" />
+                    Credentials
+                  </span>
+                  <h3 className="t-l">Certifications</h3>
+                </div>
+              </Reveal>
+              <Stagger className="line-list">
+                {portfolio.certifications.map((item, idx) => (
+                  <StaggerItem className="line-item" key={item.title}>
+                    <div className="line-item-left">
+                      <span className="t-label text-stone">
+                        0{idx + 1}
+                      </span>
+                      <div>
+                        <h4 className="kk-condensed line-item-title">{item.title}</h4>
+                        <p className="t-label text-stone">{item.source}</p>
+                      </div>
+                    </div>
+                    <span className="t-label cert-badge">VERIFIED</span>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
+
+            <div className="ledger-column">
+              <Reveal>
+                <div className="ledger-head">
+                  <span className="t-label text-vermillion-deep section-eyebrow">
+                    <span className="diamond-dot" aria-hidden="true" />
+                    Academic Foundation
+                  </span>
+                  <h3 className="t-l">Education</h3>
+                </div>
+              </Reveal>
+              <Stagger className="line-list">
+                {portfolio.education.map((item) => (
+                  <StaggerItem
+                    className="line-item line-item-with-date"
+                    key={`${item.title}-${item.year}`}
+                  >
+                    <div className="line-item-left">
+                      <span className="t-label text-stone">01</span>
+                      <div>
+                        <h4 className="kk-condensed line-item-title">{item.title}</h4>
+                        <p className="t-label text-stone">{item.detail}</p>
+                      </div>
+                    </div>
+                    <span className="font-display edu-year-badge">{item.year}</span>
+                  </StaggerItem>
+                ))}
+              </Stagger>
+            </div>
           </div>
         </section>
 
-        <section className="section-block contact-section" id="contact">
-          <SectionHeader number="04" title="Contact" />
-          <Reveal as="h2">
-            Let&apos;s
-            <br />
-            talk<span>.</span>
-          </Reveal>
-          <Reveal>
-            <p>{portfolio.contact.note}</p>
-          </Reveal>
-          <Stagger className="contact-list" amount={0.2}>
-            {portfolio.contact.links.map((link) => (
-              <ContactRow key={link.label} link={link} />
-            ))}
-          </Stagger>
-        </section>
+        {/* 05 // CONTACT & INTERACTIVE BRIEF BUILDER */}
+        <section className="kk-wrap section-block contact-section" id="contact">
+          <span aria-hidden="true" className="gutter-thread gutter-thread-left" />
+          <div className="contact-grid">
+            <div className="contact-left">
+              <div>
+                <span className="t-label text-vermillion-deep section-eyebrow">
+                  <span className="diamond-dot" aria-hidden="true" />
+                  05 &middot; Contact
+                </span>
+                <Reveal as="h2" className="t-xl contact-mega-heading">
+                  Let&apos;s <span className="text-vermillion">talk.</span>
+                </Reveal>
+                <Reveal>
+                  <p className="contact-lead-note">{portfolio.contact.note}</p>
+                </Reveal>
+              </div>
 
-        <Reveal as="footer" className="site-footer">
-          <div>
-            <p className="footer-line">Let&apos;s build something that holds up.</p>
-            <p>&copy; 2026 Abhinandan Tiwari</p>
+              <div className="contact-next-steps">
+                <span className="t-label text-stone">What happens next</span>
+                <ol className="next-steps-list">
+                  <li>
+                    <span className="t-label text-vermillion-deep">01</span>
+                    <div>
+                      <strong>Review your stack or role brief</strong>
+                      <span>Same-day response on QA &amp; security inquiries</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="t-label text-vermillion-deep">02</span>
+                    <div>
+                      <strong>Walk through test vectors &amp; workflows</strong>
+                      <span>API collections, RBAC boundaries &amp; release goals</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="t-label text-vermillion-deep">03</span>
+                    <div>
+                      <strong>Ship with confidence</strong>
+                      <span>Reproducible logs, regression suites &amp; sign-off</span>
+                    </div>
+                  </li>
+                </ol>
+              </div>
+
+              <div className="contact-direct-block">
+                <span className="t-label text-stone">Direct channels</span>
+                <Stagger className="contact-list" amount={0.2}>
+                  {portfolio.contact.links.map((link, idx) => (
+                    <ContactRow key={link.label} link={link} index={idx} />
+                  ))}
+                </Stagger>
+              </div>
+            </div>
+
+            <div className="contact-right">
+              <ContactBuilder
+                email={portfolio.contact.email}
+                linkedinUrl={portfolio.contact.linkedinUrl}
+              />
+            </div>
           </div>
-          <div>
-            <a href={`mailto:${portfolio.contact.email}`}>{portfolio.contact.email}</a>
-            <a href={portfolio.contact.linkedinUrl} target="_blank" rel="noopener noreferrer">
-              LinkedIn / abhinandantiwari
-            </a>
-          </div>
-        </Reveal>
+        </section>
       </main>
+
+      <RetroFooter
+        email={portfolio.contact.email}
+        linkedinUrl={portfolio.contact.linkedinUrl}
+      />
     </>
   );
 }
+

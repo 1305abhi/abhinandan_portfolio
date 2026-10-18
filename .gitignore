@@ -21,3 +21,7 @@ tsconfig.tsbuildinfo
 # Local working notes (not part of the site)
 CASE_STUDIES_PROPOSAL.md
 RUN_LOCAL.md
+
+# Agent runtime files
+.agents/
+skills-lock.json
